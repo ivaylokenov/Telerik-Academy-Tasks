@@ -1,0 +1,307 @@
+.clearfix-mixin() {
+    zoom: 1;
+}
+
+.clearfix-after-mixin() {
+    content: "\0020";
+    display: block;
+    height: 0;
+    overflow: hidden;
+}
+
+.clearfix-before-mixin() {
+    clear: both;
+}
+
+.clearfix, body header div#header-container, body header nav, body header nav ul, body header nav ul li ul.sub-nav-list, body section, body aside {
+    .clearfix-mixin;
+}
+
+    .clearfix:after, body header div#header-container:after, body header nav:after, body header nav ul:after, body header nav ul li ul.sub-nav-list:after, body section:after, body aside:after, .clearfix:before, body header div#header-container:before, body header nav:before, body header nav ul:before, body header nav ul li ul.sub-nav-list:before, body section:before, body aside:before {
+        .clearfix-after-mixin;
+    }
+
+    .clearfix:after, body header div#header-container:after, body header nav:after, body header nav ul:after, body header nav ul li ul.sub-nav-list:after, body section:after, body aside:after {
+        .clearfix-before-mixin;
+    }
+
+body, header, section, footer, article, h1, h2, h3, h4, h5, h6, input, button, label, p, fieldset, nav, ul, li, a, span, strong, em {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+div, h1, h3, h4, h5, h6, header, footer, body, section, nav, article, aside {
+    display: block;
+}
+
+body {
+    @background-font-size: 14px;
+    @background-font-type: normal;
+    @background-font-family: Arial;
+    @background-color: #9216f2;
+    @footer-p-font-size: 1.2em;
+    @time-font-family: Consolas, 'Lucida Console', 'DejaVu Sans Mono', monospace;
+    @a-font: 1.4em normal Arial;
+    @nav-list-gradient: rgba(179, 94, 243, 0.9);
+    @input-border: 2px solid #603382;
+
+    font: @background-font-size @background-font-type @background-font-family;
+    color: white;
+    background: @background-color;
+
+    > header {
+    /* Firefox 3.6+ */
+    background: -moz-linear-gradient(100% 100% 90deg, #9216f2, #d390ff);
+    /* Safari 4-5, Chrome 1-9 */
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#d390ff), to(#9216f2));
+    /* Safari 5.1+, Chrome 10+ */
+    background: -webkit-linear-gradient(#d390ff, #9216f2);
+    /* Opera 11.10+ */
+    background: -o-linear-gradient(#d390ff, #9216f2);
+    /* Internet Explorer */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#d390ff', endColorstr='#9216f2');
+    }
+
+    footer {
+        clear: both;
+        padding-top: 15px;
+        padding-bottom: 25px;
+        padding-right: 0px;
+        padding-left: 0px;
+
+        p {
+            font-size: @footer-p-font-size;
+            font-weight: bold;
+            text-align: center;
+        }
+    }
+
+    aside {
+        float: left;
+        width: 20%;
+        margin: 20px;
+
+        > ul {
+            list-style-type: none;
+
+            > li {
+                margin: 15px 0;
+                padding: 15px;
+                border: 1px solid black;
+                border-radius: 5px;
+
+                ul {
+                    list-style-type: none;
+                    margin-top: 10px;
+                    margin-right: 0;
+                    margin-bottom: 10px;
+                    margin-left: 0px;
+
+                    li {
+                        margin-top: 5px;
+                        margin-left: 10px;
+                        margin-bottom: 0px;
+                        margin-right: 0px;
+                        background: url(images/li-dot.png) no-repeat;
+                        background-position: 0 50%;
+                        padding-left: 25px;
+                    }
+                }
+
+                p {
+                    margin-top: 10px;
+                    margin-right: 5px;
+                    margin-bottom: 10px;
+                    margin-left: 5px;
+                    font-size: 14px;
+
+                    em {
+                        color: #cccccc;
+                        font-weight: normal;
+                        font-style: italic;
+                    }
+
+                    strong {
+                        color: #cccccc;
+                        font-weight: bold;
+                        font-style: normal;
+                    }
+
+                    a {
+                        color: #aaaaaa;
+                        text-decoration: none;
+                    }
+                }
+
+                h2 {
+                    font-size: 1.1em;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+
+    section {
+        width: 75%;
+        float: left;
+
+        article {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid black;
+            border-radius: 16px;
+
+            footer {
+                padding: 5px;
+
+                p {
+                    font-size: 16px;
+                    text-align: right;
+                    font-weight: normal;
+
+                    a {
+                        text-decoration: none;
+                        color: #a571ce;
+
+                        &:hover {
+                            text-decoration: underline;
+                        }
+
+                        time {
+                            font-family: @time-font-family;
+                        }
+                    }
+                }
+
+                header {
+                    background: none;
+                    padding: 5px;
+
+                    h1 {
+                        font-size: 1.4em;
+                        padding: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    header {
+        padding-top: 25px;
+        padding-bottom: 5px;
+        padding-right: 15px;
+        padding-left: 15px;
+
+        nav {
+            display: inline-block;
+            width: 75%;
+            margin: 20px 20px 20px 20px;
+            padding: 12px;
+            border: 1px solid #000;
+            border-radius: 16px;
+
+            ul li {
+                float: left;
+                margin: 0;
+
+                ul li {
+                    float: none;
+                    margin: 0 15px;
+                    padding: 10px 0;
+                    border-bottom: 1px solid black;
+
+                    > a {
+                        font-size: 1.2em;
+                        color: #fff;
+                    }
+
+                    &:last-of-type {
+                        border-bottom: none;
+                    }
+                }
+
+                ul.sub-nav-list {
+                    position: absolute;
+                    display: none;
+                    background-color: @nav-list-gradient;
+                    border-radius: 5px;
+                }
+
+                &:hover > a {
+                    text-decoration: underline;
+                    color: #a8a8a8;
+
+                    + ul {
+                        display: block;
+                    }
+                }
+
+                a {
+                    text-decoration: none;
+                    padding: 0 10px 0 10px;
+                    color: white;
+                    font: 1.4em normal Arial;
+
+                    &.selected {
+                        font-weight: bold;
+                    }
+                }
+            }
+
+            ul.nav-list {
+                list-style-type: none;
+            }
+        }
+
+        div#header-container div#logo-container {
+            float: left;
+            position: relative;
+        }
+
+        div#header-container div#reg-form-container {
+            float: right;
+            position: relative;
+            right: 5%;
+            top: 50%;
+
+            button {
+                margin-left: auto;
+                margin-right: auto;
+                font-weight: bold;
+                background-color: #9216f2;
+                border: 1px solid #603382;
+                border-top-color: #808080;
+                border-left-color: #808080;
+                border-style: outset;
+                border-radius: 10px;
+                padding: 5px 8px;
+                color: white;
+                width: 80px;
+
+                &:hover {
+                    background-color: #8949b9;
+                    border-style: inset;
+                    cursor: pointer;
+                }
+            }
+
+            div {
+                text-align: right;
+
+                input {
+                    width: 130px;
+                    border: @input-border;
+                    border-radius: 10px;
+                    padding: 2px 5px;
+                    margin: 5px;
+                }
+
+                label {
+                    width: 50px;
+                    margin: 5px;
+                }
+            }
+        }
+    }
+}

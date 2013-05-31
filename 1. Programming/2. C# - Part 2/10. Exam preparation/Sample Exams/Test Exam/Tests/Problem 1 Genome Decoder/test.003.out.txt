@@ -1,0 +1,200 @@
+  1 A A
+  2 A A
+  3 A A
+  4 A A
+  5 A A
+  6 A A
+  7 A A
+  8 A A
+  9 A A
+ 10 A A
+ 11 A A
+ 12 A A
+ 13 A A
+ 14 A A
+ 15 A A
+ 16 A A
+ 17 A A
+ 18 A A
+ 19 A A
+ 20 A A
+ 21 A A
+ 22 A A
+ 23 A A
+ 24 A A
+ 25 A A
+ 26 A A
+ 27 A A
+ 28 A A
+ 29 A A
+ 30 A A
+ 31 A A
+ 32 A A
+ 33 A A
+ 34 A A
+ 35 A A
+ 36 A A
+ 37 A A
+ 38 A A
+ 39 A A
+ 40 A A
+ 41 A A
+ 42 A A
+ 43 A A
+ 44 A A
+ 45 A A
+ 46 A A
+ 47 A A
+ 48 A A
+ 49 A A
+ 50 A A
+ 51 G G
+ 52 G G
+ 53 G G
+ 54 G G
+ 55 G G
+ 56 G G
+ 57 G G
+ 58 G G
+ 59 G G
+ 60 G G
+ 61 G G
+ 62 G G
+ 63 G G
+ 64 G G
+ 65 G G
+ 66 G G
+ 67 G G
+ 68 G G
+ 69 G G
+ 70 G G
+ 71 G G
+ 72 G G
+ 73 G G
+ 74 G G
+ 75 G G
+ 76 G G
+ 77 G G
+ 78 G G
+ 79 G G
+ 80 G G
+ 81 G G
+ 82 G G
+ 83 G G
+ 84 G G
+ 85 G G
+ 86 G G
+ 87 G G
+ 88 G G
+ 89 G G
+ 90 G G
+ 91 G G
+ 92 G G
+ 93 G G
+ 94 G G
+ 95 G G
+ 96 G G
+ 97 G G
+ 98 G G
+ 99 G G
+100 G G
+101 T T
+102 T T
+103 T T
+104 T T
+105 T T
+106 T T
+107 T T
+108 T T
+109 T T
+110 T T
+111 T T
+112 T T
+113 T T
+114 T T
+115 T T
+116 T T
+117 T T
+118 T T
+119 T T
+120 T T
+121 T T
+122 T T
+123 T T
+124 T T
+125 T T
+126 T T
+127 T T
+128 T T
+129 T T
+130 T T
+131 T T
+132 T T
+133 T T
+134 T T
+135 T T
+136 T T
+137 T T
+138 T T
+139 T T
+140 T T
+141 T T
+142 T T
+143 T T
+144 T T
+145 T T
+146 T T
+147 T T
+148 T T
+149 T T
+150 T T
+151 C C
+152 C C
+153 C C
+154 C C
+155 C C
+156 C C
+157 C C
+158 C C
+159 C C
+160 C C
+161 C C
+162 C C
+163 C C
+164 C C
+165 C C
+166 C C
+167 C C
+168 C C
+169 C C
+170 C C
+171 C C
+172 C C
+173 C C
+174 C C
+175 C C
+176 C C
+177 C C
+178 C C
+179 C C
+180 C C
+181 C C
+182 C C
+183 C C
+184 C C
+185 C C
+186 C C
+187 C C
+188 C C
+189 C C
+190 C C
+191 C C
+192 C C
+193 C C
+194 C C
+195 C C
+196 C C
+197 C C
+198 C C
+199 C C
+200 C C

@@ -1,0 +1,15 @@
+             PRINT           (a
+b
+c
+d
+e);
+
+
+
+
+FOR(100)PRINT(abcde);
+PRINT(
+a
+b);
+
+EXIT;

@@ -1,0 +1,86 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+}
+
+.table {
+    display: table;
+}
+
+.row {
+    display: table-row;
+}
+
+.cell {
+    display: table-cell;
+}
+
+a:link {
+    font-size: 25px;
+    color: #00ACEF;
+}
+
+a:visited {
+    font-size: 25px;
+    color: #00ACEF;
+}
+
+.header {
+    border-bottom: 2px solid black;
+    width: 780px;
+    height: 25px;
+    text-align: center;
+    margin-left: 10px;
+    font-family: Verdana;
+    padding-bottom: 5px;
+}
+
+.col1 {
+    width: 450px;
+}
+
+.col2 {
+    width: 300px;
+}
+
+fieldset {
+    border: 2px solid black;
+    margin: 5px;
+}
+
+.innerfield {
+    width: 200px;
+    height: 120px;
+}
+
+.slider {
+    width: 200px;
+}
+
+.position {
+    position: relative;
+    right: 270px;
+    top: 120px;
+}
+
+.bordertable {
+    border: 2px solid black;
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.mainform {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+p {
+    margin:0px;
+    padding: 0;
+}
+
+.changeposition {
+    position: relative;
+    bottom: 50px;
+    left: 10px;
+}

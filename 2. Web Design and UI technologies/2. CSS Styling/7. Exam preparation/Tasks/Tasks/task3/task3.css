@@ -1,0 +1,99 @@
+﻿html,
+body,
+div,
+p,
+a,
+input,
+ul,
+li,
+fieldset,
+button,
+input,
+select,
+option,
+textarea {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-size: 16px;
+  color: #333333;
+}
+body #wrapper #popup-box {
+  width: 110px;
+  margin: 15px;
+  list-style-type: none;
+}
+body #wrapper #popup-box li.popup-item {
+  position: relative;
+  border-bottom: 1px solid black;
+  padding: 5px;
+}
+body #wrapper #popup-box li.popup-item:first-of-type {
+  border-top: 1px solid black;
+}
+body #wrapper #popup-box li.popup-item > a {
+  color: #333333;
+  line-height: 25px;
+  text-decoration: none;
+  vertical-align: central;
+  display: block;
+}
+body #wrapper #popup-box li.popup-item > a:hover {
+  background-color: rbga(0, 0, 0, 0.2);
+}
+body #wrapper #popup-box li.popup-item > a span.current {
+  font-weight: bold;
+}
+body #wrapper #popup-box li.popup-item > a img {
+  width: 25px;
+  vertical-align: central;
+}
+body #wrapper #popup-box li.popup-item > div {
+  display: block;
+  position: absolute;
+  left: 120px;
+  top: 0;
+  width: 200px;
+}
+body #wrapper #popup-box li.popup-item > div.invisible {
+  display: none;
+}
+body #wrapper #popup-box li.popup-item > div > a {
+  position: absolute;
+  top: 15px;
+  right: 5px;
+  text-decoration: none;
+  color: #333333;
+  border: 1px solid black;
+  padding: 0 5px;
+  border-radius: 5px;
+}
+body #wrapper #popup-box li.popup-item > div > a:hover {
+  text-decoration: underline;
+}
+body #wrapper #popup-box li.popup-item > div fieldset {
+  border: 1px solid black;
+  padding: 15px;
+}
+body #wrapper #popup-box li.popup-item > div fieldset legend {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+body #wrapper #popup-box li.popup-item > div fieldset button {
+  padding: 5px 10px;
+  background: #666666;
+  background: -moz-linear-gradient(top, #cccccc 0%, #666666 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #cccccc), color-stop(100%, #666666));
+  background: -webkit-linear-gradient(top, #cccccc 0%, #666666 100%);
+  background: -o-linear-gradient(top, #cccccc 0%, #666666 100%);
+  background: -ms-linear-gradient(top, #cccccc 0%, #666666 100%);
+  background: linear-gradient(to bottom, #cccccc 0%, #666666 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#cccccc', endColorstr='#666666', GradientType=0);
+  border: 0;
+  border-radius: 15px;
+  color: #333333;
+}
+body #wrapper #popup-box li.popup-item > div fieldset button:hover {
+  background: #cccccc;
+}

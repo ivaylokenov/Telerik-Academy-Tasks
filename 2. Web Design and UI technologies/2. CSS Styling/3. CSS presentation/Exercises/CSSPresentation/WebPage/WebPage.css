@@ -1,0 +1,13 @@
+﻿.text {
+    font-family: Consolas;
+    color: #0094ff;
+}
+
+.firstLetter {
+    font-family: 'Edwardian Script ITC';
+    font-size: 40px;
+}
+
+.firstSentence {
+    font-weight: bold;
+}

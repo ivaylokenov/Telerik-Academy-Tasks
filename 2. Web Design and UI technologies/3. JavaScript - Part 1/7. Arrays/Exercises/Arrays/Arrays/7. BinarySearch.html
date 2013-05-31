@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Binary Search</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        var array = [0, 1, 2, 3, 4, 5, 5, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 ];
+        var searchedNumber = 7;
+        var startSearch = 0;
+        var endSearch= array.length - 1;
+        var middle;
+        while (startSearch <= endSearch)
+        {
+            middle = parseInt((startSearch + endSearch) / 2);
+
+            if (array[middle] == searchedNumber)
+            {
+                jsConsole.writeLine("Index is: " + middle);
+                break;
+            }
+
+            else if (array[middle] < searchedNumber)
+            {
+                startSearch = middle + 1;
+            }
+
+            else if (array[middle] > searchedNumber)
+            {
+                endSearch = middle - 1;
+            }
+        }
+    </script>
+</body>
+</html>
+

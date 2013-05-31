@@ -1,0 +1,11 @@
+10
+class HardTest
+
+{
+ public HardMethod()
+ {
+  string str = @"//not a 
+comment ;)";//(y)
+  string str2 = "/*no\"oo\\oo*/";/*noo*/
+ }
+}

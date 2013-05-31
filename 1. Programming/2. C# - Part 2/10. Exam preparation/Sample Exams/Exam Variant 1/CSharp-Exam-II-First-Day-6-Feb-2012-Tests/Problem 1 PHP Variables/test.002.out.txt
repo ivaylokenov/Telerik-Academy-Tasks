@@ -1,0 +1,2 @@
+1
+not_empty_var

@@ -1,0 +1,98 @@
+﻿body, ul, div, li, a, fieldset, form, legend, select, option, label, textarea, button, span, img {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: 16px;
+    color: #333333;
+}
+
+ul {
+    margin: 15px 0 0 15px;
+    list-style-type: none;
+
+    li {
+        width: 100px;
+        border-bottom: 1px solid black;
+        padding: 5px;
+        position: relative;
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        img {
+            width: 25px;
+            height: 25px;
+        }
+
+        &:first-of-type {
+            border-top: 1px solid black;
+        }
+
+        &:hover > div {
+            display: block;
+            position: absolute;
+            left: 120px;
+            top: 0;
+        }
+
+        &:hover > a {
+            font-weight: bold;
+        }
+    }
+}
+
+.invisible {
+    display: none;
+}
+
+fieldset {
+    width: 195px;
+    padding: 0 0 0 15px;
+    border: 1px solid black;
+
+    legend {
+        font-weight: bold;
+        font-size: 1.2em;
+        margin: 0 0 15px 0;
+    }
+
+    button {
+        padding: 5px 10px;
+        border: none;
+        border-radius: 15px;
+        margin: 0 0 15px 0;
+        background: #cacaca; /* Old browsers */
+        background: -moz-linear-gradient(top, #cacaca 0%, #686868 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cacaca), color-stop(100%,#686868)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, #cacaca 0%,#686868 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, #cacaca 0%,#686868 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top, #cacaca 0%,#686868 100%); /* IE10+ */
+        background: linear-gradient(to bottom, #cacaca 0%,#686868 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cacaca', endColorstr='#686868',GradientType=0 ); /* IE6-9 */
+    }
+}
+
+.btn-popup-close {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0 5px;
+    position: absolute;
+    left: 180px;
+    top: 15px;
+
+    &:hover {
+		text-decoration: underline;
+    }
+}
+
+textarea {
+    width: 180px;
+}
+
+button:hover {
+	background: #ccc;
+}

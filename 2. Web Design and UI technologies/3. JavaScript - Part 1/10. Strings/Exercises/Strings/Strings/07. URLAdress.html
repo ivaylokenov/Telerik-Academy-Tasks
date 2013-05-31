@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>URL Parser</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        #number {
+            border: 1px solid black;
+            padding: 5px 15px;
+            background-color: black;
+            color: white;
+            font-family: Consolas;
+            margin-bottom: 5px;
+        }
+
+        a {
+            color: black;
+            border: 1px solid black;
+            padding: 5px 15px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 15px 0;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+    </style>
+</head>
+<body>
+    <label for="my-number">Enter string: </label>
+    <input type="text" id="my-number" />
+    <br />
+    <a href="#" onclick="print()">Print</a>
+    <div id="console">
+    </div>
+    <script src="scripts/js-console.js">	  
+    </script>
+    <script>
+        function print() {
+            var input = jsConsole.read("#my-number");
+            jsConsole.writeLine(checkURL(input));
+        }
+
+        function checkURL(url) {
+            var protocol = "";
+            var server = "";
+            var resource = "";
+
+            if (String(url).indexOf("://") == -1) {
+                protocol = "None";
+            }
+            else {
+                protocol = String(url).substr(0, String(url).indexOf("://") + 3);
+            }
+
+
+            var start = String(url).indexOf("://") + 3;
+            if (String(url).indexOf("://") == -1) {
+                start = 0;
+            }
+            else {
+
+            }
+            var end = String(url).indexOf("/", start);
+
+            if (end != -1) {
+                server = String(url).substr(start, end - start);
+                resource = String(url).substr(end);
+            }
+            else {
+                server = String(url).substr(start);
+                resource = "None";
+            }
+
+            return {
+                protocol: protocol,
+                server: server,
+                resource: resource,
+                toString: function () { return "Protocol: " + this.protocol + " Server: " + this.server + " Resource: " + this.resource }
+            };
+        }
+    </script>
+</body>
+</html>

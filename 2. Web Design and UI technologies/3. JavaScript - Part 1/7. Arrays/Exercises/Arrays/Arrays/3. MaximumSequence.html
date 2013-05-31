@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Maximum Sequence</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        var array = [2, 1, 1, 2, 3, 3, 2, 2, 2, 1];
+        var currentNumber = array[0];
+        var startIndex = 0;
+        var lenght = 1;
+        var maxLenght = 0;
+        var maxStartIndex = 0;
+
+        for (var i = 1; i < array.length; i++) {
+            if (currentNumber == array[i]) {
+                lenght++;
+            }
+            else
+            {
+                if (lenght > maxLenght)
+                {
+                    maxLenght = lenght;
+                    maxStartIndex = startIndex;
+                }
+                lenght = 1;
+                startIndex = i;
+                currentNumber = array[i];
+            }
+        }
+
+        for (var i = maxStartIndex; i < maxStartIndex + maxLenght; i++) {
+            jsConsole.write(array[i] + " ")
+        }
+    </script>
+</body>
+</html>
+

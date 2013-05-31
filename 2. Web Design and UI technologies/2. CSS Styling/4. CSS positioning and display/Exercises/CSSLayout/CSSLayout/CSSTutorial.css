@@ -1,0 +1,148 @@
+﻿body {
+    margin:0;
+    padding:0;
+    border: 1px solid #383838;
+    font-family: Verdana;
+}
+
+.body {
+    background-color: #F1F1F1;
+    margin:0;
+    padding:0;
+}
+
+.header {
+    padding-top: 10px;
+}
+
+.home {
+    font-weight: bold;
+    position: relative;
+    bottom: 3px;
+}
+
+nav {
+    margin-left: 5px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    margin-top: 20px;
+    padding: 0;
+}
+
+ul li:first-of-type {
+    font-weight:bold;
+    color: #900B09;
+}
+
+li a {
+    color: black;
+    text-decoration: none;
+}
+
+    li a:hover {
+        text-decoration:underline;
+    }
+
+aside {
+    display: inline-block;
+    width: 19%;
+    vertical-align: top;
+}
+
+article > div {
+    margin-bottom: 20px;
+}
+
+section {
+    display: inline-block;
+    width: 60%;
+    vertical-align: top;
+    margin-top: 5px;
+    background-color:white;
+    border: 2px solid #868686;
+    padding: 5px;
+    height: 800px;
+}
+
+    section header a {
+        display: inline-block;
+        border: 2px solid black;
+        text-decoration: none;
+        color: black;
+        width: 130px;
+        height: 25px;
+        padding-top: 2px;
+    }
+
+    section footer a {
+        display: inline-block;
+        border: 2px solid black;
+        text-decoration: none;
+        color: black;
+        width: 130px;
+        height: 25px;
+        padding-top: 2px;
+    }
+
+div > header {
+    background-color: #808080;
+    font-weight: bold;
+    padding-left: 5px;
+    color: white;
+}
+
+div .logo{
+    display: inline-block;
+    width: 20%;
+}
+
+div .logo-text-block {
+    display: inline-block;
+    width: 70%;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    position:relative;
+    bottom: 10px;
+}
+
+div > a {
+    color: #900B09;
+}
+
+hr {
+    height: 3px;
+}
+
+.ads > div {
+    border: 2px solid #868686;
+    margin-top: 5px;
+    background-color: white;
+}
+
+    .ads > div a {
+        display:block;
+        text-align: center;
+        margin: 5px;
+    }
+
+    .ads > div img {
+        margin: 5px;
+        margin-left: 60px;
+    }
+
+button {
+    height:25px;
+    width: 25px;
+}
+
+form {
+    margin-left: 40px;
+    margin-top: 5px;
+}
+
+.adheader {
+    text-align: center;
+}

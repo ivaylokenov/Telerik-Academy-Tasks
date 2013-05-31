@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+     <title>Greatest variable</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        var arrayOfNumber = [5, 10, 7, 1, 9];
+        var maxNumber = arrayOfNumber[0];
+
+        for (var i = 1; i < arrayOfNumber.length; i++) {
+            if (arrayOfNumber[i] > maxNumber) {
+                maxNumber = arrayOfNumber[i];
+            }
+        }
+
+        jsConsole.writeLine(maxNumber);
+    </script>
+</body>
+</html>

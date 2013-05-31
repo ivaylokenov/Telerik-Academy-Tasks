@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Lexicography</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        var array = ["z", "a", "b", "c"];
+        var secondArray = ["d", "e", "f", "g"];
+
+        var min = Math.min(array.length, secondArray.length);
+        var checkLetters = "equal";
+
+        for (var i = 0; i < min; i++) {
+            if (array[i] < secondArray[i]) {
+                checkLetters = "first";
+                break;
+            }
+            else if (array[i] > secondArray[i]) {
+                checkLetters = "second";
+                break;
+            }
+        }
+
+        jsConsole.writeLine(checkLetters);
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,140 @@
+using System;
+using System.Globalization;
+using System.Collections.Generic;
+using EffiProz.Core.Lib;
+using EffiProz.Core.Rights;
+using EffiProz.Core.Errors;
+namespace EffiProz.Core
+{
+    public class Collation : SchemaObject
+    {
+        public static Dictionary<string, string> nameToCSharpName = new Dictionary<string, string>(101,StringComparer.InvariantCultureIgnoreCase);
+        static Collation()
+        {
+#if !SILVERLIGHT && !PLATFORM_COMPACTFRAMEWORK
+            CultureInfo[] allCultures = CultureInfo.GetCultures(CultureTypes.AllCultures);
+            foreach (var cul in allCultures)
+            {
+                nameToCSharpName[cul.EnglishName] = cul.Name;
+            }
+#else
+            nameToCSharpName[CultureInfo.InvariantCulture.EnglishName] = CultureInfo.InvariantCulture.Name;
+            nameToCSharpName[CultureInfo.CurrentCulture.EnglishName] = CultureInfo.CurrentCulture.Name;
+            nameToCSharpName[CultureInfo.CurrentUICulture.EnglishName] = CultureInfo.CurrentUICulture.Name;
+#endif
+        }
+        public QNameManager.QName name;
+        public CompareInfo collator;
+        public CultureInfo locale;
+        public static Collation defaultCollation = new Collation();
+        public Collation()
+        {
+#if !SILVERLIGHT && !PLATFORM_COMPACTFRAMEWORK
+            locale = CultureInfo.GetCultureInfo("en-US");
+            collator = CompareInfo.GetCompareInfo("en-US");
+#else
+            locale = CultureInfo.InvariantCulture;
+            collator = CultureInfo.InvariantCulture.CompareInfo;
+#endif
+            name = QNameManager.newInfoSchemaObjectName(locale.EnglishName, true,
+                SchemaObjectTypes.COLLATION);
+        }
+        public void setCollationAsLocale()
+        {
+            locale = CultureInfo.CurrentCulture;
+            collator = CultureInfo.CurrentCulture.CompareInfo;
+        }
+        public void setCollation(string newName)
+        {
+#if !SILVERLIGHT && !PLATFORM_COMPACTFRAMEWORK
+            string jname = (String)Collation.nameToCSharpName[newName];
+            if (jname == null)
+            {
+                throw Error.error(ErrorCode.X_42501, newName);
+            }
+            name.rename(newName, true);
+            locale = CultureInfo.GetCultureInfo(jname);
+            collator = CompareInfo.GetCompareInfo(jname);
+#endif
+        }
+        public int compare(string a, string b)
+        {
+            int i;
+            if (collator == null)
+            {
+                i = a.CompareTo(b);
+            }
+            else
+            {
+                i = collator.Compare(a, b);
+            }
+            return (i == 0) ? 0
+                            : (i < 0 ? -1
+                                     : 1);
+        }
+        public int compareIgnoreCase(string a, string b)
+        {
+            int i;
+            if (collator == null)
+            {
+                i = string.Compare(a, b, StringComparison.OrdinalIgnoreCase);
+            }
+            else
+            {
+                i = collator.Compare(toUpperCase(a), toUpperCase(b));
+            }
+            return (i == 0) ? 0
+                            : (i < 0 ? -1
+                                     : 1);
+        }
+        public string toUpperCase(string s)
+        {
+            return s.ToUpper(locale);
+        }
+        public string toLowerCase(string s)
+        {
+            return s.ToLower(locale);
+        }
+        public bool isEqualAlwaysIdentical()
+        {
+            return collator == null;
+        }
+        public static Collation getDefaultInstance()
+        {
+            return defaultCollation;
+        }
+        public virtual QNameManager.QName getName()
+        {
+            return name;
+        }
+        public virtual int getType()
+        {
+            return SchemaObjectTypes.COLLATION;
+        }
+        public virtual QNameManager.QName getSchemaName()
+        {
+            return SqlInvariants.INFORMATION_SCHEMA_QNAME;
+        }
+        public virtual QNameManager.QName getCatalogName()
+        {
+            return null;
+        }
+        public virtual Grantee getOwner()
+        {
+            return SqlInvariants.INFORMATION_SCHEMA_QNAME.owner;
+        }
+        public virtual OrderedHashSet getReferences()
+        {
+            return new OrderedHashSet();
+        }
+        public virtual OrderedHashSet getComponents()
+        {
+            return null;
+        }
+        public virtual void compile(Session session, SchemaObject parentObject) { }
+        public virtual String getSQL()
+        {
+            return "";
+        }
+    }
+}

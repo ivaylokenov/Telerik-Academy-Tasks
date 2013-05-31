@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Sample exams</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        #number {
+            border: 1px solid black;
+            padding: 5px 15px;
+            background-color: black;
+            color: white;
+            font-family: Consolas;
+            margin-bottom: 5px;
+        }
+
+        a {
+            color: black;
+            border: 1px solid black;
+            padding: 5px 15px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 15px 0;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+    </style>
+</head>
+<body>
+    <a href="#" onclick="print()">Print</a>
+    <div id="console">
+    </div>
+    <script src="scripts/js-console.js">	  
+    </script>
+    <script>
+        function print() {
+            var args = "**!!!&&&-!-*!!!&*!";
+            console.log(Solve(args));
+        }
+
+        function Solve(args) {
+
+            var stringInput = String(args);
+            var eightSystemNumber = [];
+
+            for (var i = 0; i < stringInput.length; i++) {
+                if (i + 1 < stringInput.length && stringInput.substr(i, 2) == "-!") {
+                    eightSystemNumber.push(0);
+                    i++;
+                }
+                else if (i + 1 < stringInput.length && stringInput.substr(i, 2) == "**") {
+                    eightSystemNumber.push(1);
+                    i++;
+                }
+                else if (i + 2 < stringInput.length && stringInput.substr(i, 3) == "!!!") {
+                    eightSystemNumber.push(2);
+                    i += 2;
+                }
+                else if (i + 1 < stringInput.length && stringInput.substr(i, 2) == "&&") {
+                    eightSystemNumber.push(3);
+                    i++;
+                }
+                else if (i + 1 < stringInput.length && stringInput.substr(i, 2) == "&-") {
+                    eightSystemNumber.push(4);
+                    i++;
+                }
+                else if (i + 1 < stringInput.length && stringInput.substr(i, 2) == "!-") {
+                    eightSystemNumber.push(5);
+                    i++;
+                }
+                else if (i + 3 < stringInput.length && stringInput.substr(i, 4) == "*!!!") {
+                    eightSystemNumber.push(6);
+                    i += 3;
+                }
+                else if (i + 2 < stringInput.length && stringInput.substr(i, 3) == "&*!") {
+                    eightSystemNumber.push(7);
+                    i += 2;
+                }
+                else if (i + 5 < stringInput.length && stringInput.substr(i, 6) == "!!**!-") {
+                    eightSystemNumber.push(8);
+                    i += 5;
+                }
+            }
+
+            var counter = eightSystemNumber.length - 1;
+            var sum = 0;
+
+            for (var i = 0; i < eightSystemNumber.length; i++) {
+                sum += (eightSystemNumber[i] * pow(9, counter));
+                counter--;
+            }
+
+            return sum;
+        }
+
+        function pow(number, power) {
+
+            var result = 1;
+
+            for (var i = 0; i < power; i++) {
+                result = result * number;
+            }
+
+            return result;
+        }
+
+    </script>
+</body>
+</html>

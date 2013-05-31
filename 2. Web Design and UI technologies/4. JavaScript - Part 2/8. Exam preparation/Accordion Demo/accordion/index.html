@@ -1,0 +1,58 @@
+<html>
+<head>
+  <title></title>
+  <script type="text/javascript" src="accordion.js"></script>
+  <script type="text/javascript" src="local-storage-extensions.js"></script>
+  <style type="text/css">
+    #accordion-holder ul,
+    #copied-accordion-holder ul
+    {
+      list-style-type:none;
+    }
+    #accordion-holder ul li a,
+    #copied-accordion-holder ul li a{
+      color:black;
+      text-decoration: none;
+    }
+    #accordion-holder ul li:hover > a,
+    #copied-accordion-holder ul li:hover > a{
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div id="accordion-holder"></div>
+  <div id="copied-accordion-holder"></div>
+
+  <script type="text/javascript">
+    var accordion = controls.getAccordion("#accordion-holder");
+    var webItem = accordion.add("Web");
+      var aspnetItem = webItem.add("ASP.NET");
+        aspnetItem.add("ASP.NET MVC");
+        aspnetItem.add("ASP.NET MVC");
+
+      var htmlItem = webItem.add("HTML");
+        htmlItem.add("v4.1");
+        htmlItem.add("v5");
+
+      var mobileItem = accordion.add("Mobile");
+        mobileItem.add("Android");
+        mobileItem.add("Windows Phone");
+        mobileItem.add("iOS");
+
+      var desktopItem = accordion.add("Dekstop");
+        desktopItem.add("XAML");
+        desktopItem.add("Windows Forms");
+        
+    accordion.render();
+
+    var serialized = accordion.serialize();
+    localStorage.setObject("acc", serialized);
+
+    var deserializedData = localStorage.getObject("acc");
+    var clonedAccordion = controls.buildAccordion("#copied-accordion-holder", deserializedData);
+    clonedAccordion.render();
+  </script>
+
+</body>
+</html>

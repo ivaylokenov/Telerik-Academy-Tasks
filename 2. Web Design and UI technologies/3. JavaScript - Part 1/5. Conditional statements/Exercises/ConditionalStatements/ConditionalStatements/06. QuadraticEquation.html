@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Euadratic equation</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        var a = prompt("Enter a:");
+        var b = prompt("Enter b:");
+        var c = prompt("Enter c:");
+
+        if (a == 0) {
+            var x = -c / b;
+            jsConsole.writeLine("One root: " + x);
+        }
+        else {
+            var D = (b * b) - (4 * a * c);
+
+            if (D < 0) {
+                jsConsole.writeLine("No roots.")
+            }
+
+            if (D == 0) {
+                var x = (-1 * b) / (2 * a);
+                jsConsole.writeLine("Double root: " + x);
+            }
+
+            if (D > 0) {
+                var x1 = ((-1 * b) + Math.sqrt(D)) / (2 * a);
+                var x2 = ((-1 * b) - Math.sqrt(D)) / (2 * a);
+                jsConsole.writeLine("First root: " + x1);
+                jsConsole.writeLine("Second root: " + x2);
+            }
+        }
+    </script>
+</body>
+</html>

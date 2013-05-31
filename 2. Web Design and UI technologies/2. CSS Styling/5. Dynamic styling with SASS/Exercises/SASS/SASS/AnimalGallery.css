@@ -1,0 +1,14 @@
+nav .shown {
+  width: 150px;
+  height: 100px; }
+
+nav input[type="radio"] {
+  display: none; }
+  nav input[type="radio"]:checked + label img.hidden {
+    display: block; }
+
+.hidden {
+  display: none;
+  position: absolute;
+  top: 120px; }
+

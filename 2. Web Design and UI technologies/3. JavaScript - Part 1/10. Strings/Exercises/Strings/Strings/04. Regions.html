@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Check Brackets</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        #number {
+            border: 1px solid black;
+            padding: 5px 15px;
+            background-color: black;
+            color: white;
+            font-family: Consolas;
+            margin-bottom: 5px;
+        }
+
+        a {
+            color: black;
+            border: 1px solid black;
+            padding: 5px 15px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 15px 0;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+    </style>
+</head>
+<body>
+    <a href="#" onclick="print()">Print</a>
+    <div id="console">
+    </div>
+    <script src="scripts/js-console.js">	  
+    </script>
+    <script>
+        function print() {
+            var input = "We are <mixcase>li<upcase>vi</upcase>ng</mixcase> in a <upcase>yell<lowcase>ow su</lowcase>bmarine</upcase>. We <mixcase>don't</mixcase> have <lowcase>ANY<mixcase>THi</mixcase>ng</lowcase> else.";
+            
+            jsConsole.writeLine(convertString(input));
+        }
+
+        function convertString(text) {
+            var lowercase = false;
+            var upcase = false;
+            var mixcase = false;
+            var stringArray = []; //we use this array as stack in which we fill nested tags
+            var output = "";
+
+            for (var i = 0; i < text.length; i++) {
+
+
+                if (text.substr(i, 9) == "<mixcase>")
+                {
+                    mixcase = true;
+                    stringArray.push("mix");
+                    i += 8;
+                    continue;
+                }
+                if (text.substr(i,10) == "</mixcase>")
+                {
+                    mixcase = false;
+                    stringArray.pop();
+                    i += 9;
+                    continue;
+                }
+                if (text.substr(i, 8) == "<upcase>") {
+                    upcase = true;
+                    stringArray.push("up");
+                    i += 7;
+                    continue;
+                }
+                if (text.substr(i, 9) == "</upcase>") {
+                    upcase = false;
+                    stringArray.pop();
+                    i += 8;
+                    continue;
+                }
+                if (text.substr(i, 9) == "<lowcase>") {
+                    lowercase = true;
+                    stringArray.push("low");
+                    i += 8;
+                    continue;
+                }
+                if (text.substr(i, 10) == "</lowcase>") {
+                    lowercase = false;
+                    stringArray.pop();
+                    i += 9;
+                    continue;
+                }
+
+                //if last in stack is low and lower is true
+                if (lowercase && stringArray[stringArray.length - 1] == "low") {
+                    output += String(text[i]).toLowerCase();
+                    continue;
+                }
+                //if last in stack is upcase and upcase is true
+                if (upcase && stringArray[stringArray.length - 1] == "up") {
+                    output += String(text[i]).toUpperCase();
+                    continue;
+                }
+                //if last in stack is mixcase and mixcase is true
+                if (mixcase && stringArray[stringArray.length - 1] == "mix") {
+                    var random = Math.floor(Math.random() * 100 + 1);
+                    if (random % 2 == 0) {
+                        output += String(text[i]).toLowerCase();
+                    }
+                    else {
+                        output += String(text[i]).toUpperCase();
+                    }
+                    continue;
+                }
+
+                output += String(text[i]);
+            }
+
+            return output;
+        }
+    </script>
+</body>
+</html>

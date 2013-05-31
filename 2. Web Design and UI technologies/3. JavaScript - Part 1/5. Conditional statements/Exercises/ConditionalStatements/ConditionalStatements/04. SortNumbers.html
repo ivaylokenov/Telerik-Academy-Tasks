@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <title>Sort numbers</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        var first = prompt("Enter first number:");
+        var second = prompt("Enter second number:");
+        var third = prompt("Enter third number:");
+
+        if (first < second) {
+            first = first ^ second;
+            second = first ^ second;
+            first = first ^ second;
+
+            if (first < third) {
+                first = first ^ third;
+                third = first ^ third;
+                first = first ^ third;
+            }
+
+            if (second < third) {
+                second = second ^ third;
+                third = second ^ third;
+                second = second ^ third;
+            }
+
+            jsConsole.writeLine(first);
+            jsConsole.writeLine(second);
+            jsConsole.writeLine(third);
+        }
+    </script>
+</body>
+</html>

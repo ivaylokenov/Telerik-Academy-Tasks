@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Input type color</title>
+    <script>
+        function onButtonClick() {
+            var fontColor = document.getElementById("font-color").value;
+            var backgroundColor = document.getElementById("background-color").value;
+            var textArea = document.getElementById("text");
+            textArea.style.backgroundColor = backgroundColor;
+            textArea.style.color = fontColor;
+        }
+    </script>
+</head>
+<body>
+    <textarea id="text"></textarea>
+    <br />
+    <span>Choose font color:</span>
+    <input type="color" id="font-color" />
+    <br />
+    <span>Choose background color:</span>
+    <input type="color" id="background-color" />
+    <br />
+    <a href="#" onclick="onButtonClick()">Finally click here!</a>
+</body>
+</html>

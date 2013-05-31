@@ -1,0 +1,16 @@
+2
+1:cups:Sugar
+1.006:ls:Old milK
+2
+800:mls:old MILK
+1.5:cups:sugar
+
+
+1 tbsps = 15 mls
+1 ls = 1000 mls
+1 fl ozs = 30 mls
+1 tsps = 5 mls
+1 gals = 3840 mls
+1 pts = 480 mls
+1 qts = 960 mls
+1 cups = 240 mls

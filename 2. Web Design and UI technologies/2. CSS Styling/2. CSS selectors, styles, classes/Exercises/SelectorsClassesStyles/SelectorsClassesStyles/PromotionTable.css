@@ -1,0 +1,54 @@
+﻿th {
+    background-image: url("images/border.png");
+    color: white;
+    font-weight: normal;
+    border-bottom: 2px solid #75A261;
+    border-right: 1px solid #75A261;
+    height: 25px;
+}
+
+td {
+    height: 30px;
+    border-right: 1px solid #EEEDD9;
+}
+
+th, td {
+    padding: 5px;
+    text-align: left;
+    vertical-align: central;
+}
+
+.odd {
+    background-color: white;
+}
+
+.even {
+    background-color: #eaeaea;
+}
+
+.firstColumn {
+    width: 180px;
+}
+
+.secondColumn {
+    width: 140px;
+}
+
+.thirdColumn {
+    width: 160px;
+}
+
+.fourthColumn {
+    width: 100px;
+}
+
+img {
+    vertical-align: middle;
+}
+
+table {
+    border: 1px solid #EEEDD9;
+    border-collapse: collapse;
+    font-family: Arial;
+    font-size: 16px;
+}

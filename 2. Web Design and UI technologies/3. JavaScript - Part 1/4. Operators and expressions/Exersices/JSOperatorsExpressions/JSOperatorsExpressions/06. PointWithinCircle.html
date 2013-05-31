@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Point within circle</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="js-console"></div>
+	<script src="scripts/js-console.js"></script>
+    <script>
+        var x = prompt("Enter x:");
+        var y = prompt("Enter y:");
+        if (x * x + y * y < 5 * 5) {
+            jsConsole.writeLine("Point is within circle (0,5).");
+        }
+        else {
+            jsConsole.writeLine("Point is not within circle (0,5).");
+        }
+    </script>
+</body>
+</html>

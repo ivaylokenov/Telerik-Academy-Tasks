@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Third digit</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        var integer = prompt("Enter integer:");
+        integer /= 100;
+        integer %= 10;
+        if (integer.toFixed() == 7) {
+            jsConsole.writeLine("Third digit is 7.");
+        }
+        else {
+            jsConsole.writeLine("Third digit is not 7.");
+        }
+    </script>
+</body>
+</html>

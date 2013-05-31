@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Check Brackets</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        #number {
+            border: 1px solid black;
+            padding: 5px 15px;
+            background-color: black;
+            color: white;
+            font-family: Consolas;
+            margin-bottom: 5px;
+        }
+
+        a {
+            color: black;
+            border: 1px solid black;
+            padding: 5px 15px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 15px 0;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+    </style>
+</head>
+<body>
+    <label for="my-number">Enter string: </label>
+    <input type="text" id="my-number" />
+    <br />
+    <a href="#" onclick="print()">Print</a>
+    <div id="console">
+    </div>
+    <script src="scripts/js-console.js">	  
+    </script>
+    <script>
+        function print() {
+            var input = jsConsole.read("#my-number");
+            jsConsole.writeLine(checkBrackets(input));
+        }
+
+        function checkBrackets(expression) {
+            var brackets = 0
+
+            for (var i = 0; i < expression.length; i++) {
+                if (expression[i] == "(") {
+                    brackets++;
+                }
+                if (expression[i] == ")") {
+                    brackets--;
+                }
+                if (brackets < 0) {
+                    return "expression is not valid";
+                }
+            }
+
+            if (brackets == 0) {
+                return "expression is valid";
+            }
+            else {
+                return "expression is not valid";
+            }
+        }
+    </script>
+</body>
+</html>

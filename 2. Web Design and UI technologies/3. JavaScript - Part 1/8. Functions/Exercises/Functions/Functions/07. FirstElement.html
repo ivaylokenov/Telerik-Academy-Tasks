@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>First Element Bigger Than Neighbours</title>
+	<link href="styles/js-console.css" rel="stylesheet" />
+	<style>
+		#number {
+			border: 1px solid black;
+			padding: 5px 15px;
+			background-color: black;
+			color: white;
+			font-family: Consolas;
+			margin-bottom: 5px;
+		}
+
+		a {
+			color: black;
+			border: 1px solid black;
+			padding: 5px 15px;
+			text-decoration: none;
+			display: inline-block;
+			margin: 15px 0;
+		}
+
+			a:hover {
+				text-decoration: underline;
+			}
+	</style>
+</head>
+<body>
+	<a href="#" onclick="buttonClick()">Print</a>
+	<div id="console">
+	</div>
+	<script src="scripts/js-console.js">	  
+	</script>
+	<script>
+	    function buttonClick() {
+	        var someArray = [1, 1, 2, 3, 4,];
+
+	        jsConsole.write(traverseArrayAndFindElement(someArray));
+	    }
+
+	    function checkPosition(array, position) {
+
+	        if (position < 1 || position > array.length - 1) {
+	            return 0;
+	        }
+
+	        if (array[position] > array[position + 1] && array[position] > array[position - 1]) {
+	            return 1;
+	        }
+	        else {
+	            return 2;
+	        }
+	    }
+
+	    function traverseArrayAndFindElement(array) {
+	        for (var i = 0; i < array.length; i++) {
+	            if (checkPosition(array, i) == 1)
+	            {
+	                return i;
+	            }
+	        }
+	        return -1;
+	    }
+	</script>
+</body>
+</html>
+
+

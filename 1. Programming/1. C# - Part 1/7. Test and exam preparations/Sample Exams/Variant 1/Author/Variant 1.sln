@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Problem 3 Fir Tree", "Problem 3 Fir Tree\Problem 3 Fir Tree.csproj", "{D7DBAFF9-4F57-4748-A14A-0D8AF0B80D2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Problem 2 Tribonacci", "Problem 2 Tribonacci\Problem 2 Tribonacci.csproj", "{4601B82C-EA03-47E0-A068-6BADF8DC3EB8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Problem 5 Pillars", "Problem 5 Pillars\Problem 5 Pillars.csproj", "{191BAC7C-8256-46B7-9B97-058264B833C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Problem 1 Ship Damage", "Problem 1 Ship Damage\Problem 1 Ship Damage.csproj", "{AFEDCCA7-66C1-40DA-A23A-D140D54A8D12}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Problem 4 We All Love Bits!", "Problem 4 We All Love Bits!\Problem 4 We All Love Bits!.csproj", "{0918C169-E21B-4466-B6B3-D037B685977E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D7DBAFF9-4F57-4748-A14A-0D8AF0B80D2C}.Debug|x86.ActiveCfg = Debug|x86
+		{D7DBAFF9-4F57-4748-A14A-0D8AF0B80D2C}.Debug|x86.Build.0 = Debug|x86
+		{D7DBAFF9-4F57-4748-A14A-0D8AF0B80D2C}.Release|x86.ActiveCfg = Release|x86
+		{D7DBAFF9-4F57-4748-A14A-0D8AF0B80D2C}.Release|x86.Build.0 = Release|x86
+		{4601B82C-EA03-47E0-A068-6BADF8DC3EB8}.Debug|x86.ActiveCfg = Debug|x86
+		{4601B82C-EA03-47E0-A068-6BADF8DC3EB8}.Debug|x86.Build.0 = Debug|x86
+		{4601B82C-EA03-47E0-A068-6BADF8DC3EB8}.Release|x86.ActiveCfg = Release|x86
+		{4601B82C-EA03-47E0-A068-6BADF8DC3EB8}.Release|x86.Build.0 = Release|x86
+		{191BAC7C-8256-46B7-9B97-058264B833C4}.Debug|x86.ActiveCfg = Debug|x86
+		{191BAC7C-8256-46B7-9B97-058264B833C4}.Debug|x86.Build.0 = Debug|x86
+		{191BAC7C-8256-46B7-9B97-058264B833C4}.Release|x86.ActiveCfg = Release|x86
+		{191BAC7C-8256-46B7-9B97-058264B833C4}.Release|x86.Build.0 = Release|x86
+		{AFEDCCA7-66C1-40DA-A23A-D140D54A8D12}.Debug|x86.ActiveCfg = Debug|x86
+		{AFEDCCA7-66C1-40DA-A23A-D140D54A8D12}.Debug|x86.Build.0 = Debug|x86
+		{AFEDCCA7-66C1-40DA-A23A-D140D54A8D12}.Release|x86.ActiveCfg = Release|x86
+		{AFEDCCA7-66C1-40DA-A23A-D140D54A8D12}.Release|x86.Build.0 = Release|x86
+		{0918C169-E21B-4466-B6B3-D037B685977E}.Debug|x86.ActiveCfg = Debug|x86
+		{0918C169-E21B-4466-B6B3-D037B685977E}.Debug|x86.Build.0 = Debug|x86
+		{0918C169-E21B-4466-B6B3-D037B685977E}.Release|x86.ActiveCfg = Release|x86
+		{0918C169-E21B-4466-B6B3-D037B685977E}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

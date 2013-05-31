@@ -1,0 +1,17 @@
+16
+_var1
+_var2
+_var3
+_var4
+_var5
+_var6
+_var7
+aaaaa
+anotherarr
+arr
+bbbbb
+justvar
+num
+randarr
+varr1
+vvvv1

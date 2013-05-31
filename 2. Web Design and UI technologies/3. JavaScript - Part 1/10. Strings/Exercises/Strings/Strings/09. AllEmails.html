@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Extract e-mails</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        #number {
+            border: 1px solid black;
+            padding: 5px 15px;
+            background-color: black;
+            color: white;
+            font-family: Consolas;
+            margin-bottom: 5px;
+        }
+
+        a {
+            color: black;
+            border: 1px solid black;
+            padding: 5px 15px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 15px 0;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+    </style>
+</head>
+<body>
+    <a href="#" onclick="print()">Print</a>
+    <div id="console">
+    </div>
+    <script src="scripts/js-console.js">	  
+    </script>
+    <script>
+        function print() {
+            var text = "Please contact us by phone (+359 222 222 222) or by email at exa_mple@abv.bg or at baj.ivan@yahoo.co.uk. This is not email: test@test. This also: @telerik.com. Neither this: a@a.b.";
+            jsConsole.writeLine(extractMails(text));
+        }
+
+        function extractMails(text) {
+            var words = String(text).split(' ');
+            var emails = [];
+
+            for (var i = 0; i < words.length; i++) {
+
+                indexOfKliomba = words[i].indexOf("@");
+
+                //I asume emails identifier is more than 6 symbols
+                if (indexOfKliomba == -1 || indexOfKliomba < 6) {
+                    continue;
+                }
+
+                indexOfDot = words[i].lastIndexOf(".");
+
+                //last dot of email should not be at the end of the word
+                if (indexOfDot == -1 || words[i].length - indexOfDot < 1)
+                {
+                    continue;
+                }
+
+                emails.push(words[i]);
+            }
+
+            return emails;
+        }
+    </script>
+</body>
+</html>

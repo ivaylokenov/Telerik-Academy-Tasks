@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Trash bucket</title>
+    <script src="01.TrashBucket.js"></script>
+    <style>
+        #score {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        #finished-score {
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body onload="generateTrash()">
+    <div id="score">Score: 0.0000</div>
+    <div id="game">
+        <img src="images/bucketclosed.jpg" ondrop="drop(event)" ondragover="allowDrop(event)"
+            ondragenter="changeBucketStateToOpen()" ondragleave="changeBucketStateToClosed()" id="bucket" />
+        <img src="images/bottle.png" draggable="true" ondragstart="drag(event)" class="trash" />
+        <img src="images/bottle.png" draggable="true" ondragstart="drag(event)" class="trash" />
+        <img src="images/bottle.png" draggable="true" ondragstart="drag(event)" class="trash" />
+        <img src="images/bottle.png" draggable="true" ondragstart="drag(event)" class="trash" />
+        <img src="images/bottle.png" draggable="true" ondragstart="drag(event)" class="trash" />
+        <img src="images/bottle.png" draggable="true" ondragstart="drag(event)" class="trash" />
+        <img src="images/bottle.png" draggable="true" ondragstart="drag(event)" class="trash" />
+        <img src="images/bottle.png" draggable="true" ondragstart="drag(event)" class="trash" />
+        <img src="images/bottle.png" draggable="true" ondragstart="drag(event)" class="trash" />
+        <img src="images/bottle.png" draggable="true" ondragstart="drag(event)" class="trash" />
+    </div>
+    <script src="01.TrashBucket.js"></script>
+</body>
+</html>

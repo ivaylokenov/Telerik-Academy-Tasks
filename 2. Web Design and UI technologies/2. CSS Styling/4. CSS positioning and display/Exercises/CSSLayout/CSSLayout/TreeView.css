@@ -1,0 +1,27 @@
+﻿a {
+    text-decoration:none;
+    color: black;
+}
+
+ul {
+    list-style-type: none;
+}
+
+    ul:first-child li {
+        width:200px;
+    }
+
+li:hover > a {
+    text-decoration: underline;
+}
+
+li > ul {
+    display: none;
+}
+
+li:hover > ul {
+
+    display: block;
+    padding: 0;
+    padding-left: 25px;
+}

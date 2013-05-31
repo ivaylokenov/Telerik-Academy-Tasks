@@ -1,0 +1,337 @@
+336
+//
+// (C) Copyright 2009 Irantha Suwandarathna (irantha@gmail.com)
+//
+
+/* Copyright (c) 2001-2008, The HSQL Development Group
+ * All rights reserved.
+ *
+ * Redistribution and use _in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * Redistributions of source code must retain the above copyright notice, this
+ * list of conditions and the following disclaimer.
+ *
+ * Redistributions _in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer _in the documentation
+ * and/or other materials provided with the distribution.
+ *
+ * Neither the name of the HSQL Development Group nor the names of its
+ * contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL HSQL DEVELOPMENT GROUP, HSQLDB.ORG,
+ * OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+
+using System;
+using System.Globalization;
+using System.Collections.Generic;
+using EffiProz.Core.Lib;
+using EffiProz.Core.Rights;
+using EffiProz.Core.Errors;
+
+namespace EffiProz.Core
+{
+    /**
+     * Implementation of collation support for all CHAR and VARCHAR data.
+     *
+     * @author frank.schoenheit@sun.com
+     * @author fredt@users
+     * @version 1.8.0
+     * @since 1.8.0
+     */
+    public class Collation : SchemaObject
+    {
+
+        public static Dictionary<string, string> nameToCSharpName = new Dictionary<string, string>(101,StringComparer.InvariantCultureIgnoreCase);
+
+        static Collation()
+        {
+#if !SILVERLIGHT && !PLATFORM_COMPACTFRAMEWORK
+            CultureInfo[] allCultures = CultureInfo.GetCultures(CultureTypes.AllCultures);
+            foreach (var cul in allCultures)
+            {
+                nameToCSharpName[cul.EnglishName] = cul.Name;
+            }
+#else
+            nameToCSharpName[CultureInfo.InvariantCulture.EnglishName] = CultureInfo.InvariantCulture.Name;
+            nameToCSharpName[CultureInfo.CurrentCulture.EnglishName] = CultureInfo.CurrentCulture.Name;
+            nameToCSharpName[CultureInfo.CurrentUICulture.EnglishName] = CultureInfo.CurrentUICulture.Name;
+#endif
+
+            //nameToCSharpName.Add("Afrikaans", "af-ZA");
+            //nameToCSharpName.Add("Amharic", "am-ET");
+            //nameToCSharpName.Add("Arabic", "ar");
+            //nameToCSharpName.Add("Assamese", "as-IN");
+            //nameToCSharpName.Add("Azerbaijani_Latin", "az-AZ");
+            //nameToCSharpName.Add("Azerbaijani_Cyrillic", "az-cyrillic");
+            //nameToCSharpName.Add("Belarusian", "be-BY");
+            //nameToCSharpName.Add("Bulgarian", "bg-BG");
+            //nameToCSharpName.Add("Bengali", "bn-IN");
+            //nameToCSharpName.Add("Tibetan", "bo-CN");
+            //nameToCSharpName.Add("Bosnian", "bs-BA");
+            //nameToCSharpName.Add("Catalan", "ca-ES");
+            //nameToCSharpName.Add("Czech", "cs-CZ");
+            //nameToCSharpName.Add("Welsh", "cy-GB");
+            //nameToCSharpName.Add("Danish", "da-DK");
+            //nameToCSharpName.Add("German", "de-DE");
+            //nameToCSharpName.Add("Greek", "el-GR");
+            //nameToCSharpName.Add("Latin1_General", "en-US");
+            //nameToCSharpName.Add("Spanish", "es-ES");
+            //nameToCSharpName.Add("Estonian", "et-EE");
+            //nameToCSharpName.Add("Basque", "eu");
+            //nameToCSharpName.Add("Finnish", "fi-FI");
+            //nameToCSharpName.Add("French", "fr-FR");
+            //nameToCSharpName.Add("Guarani", "gn-PY");
+            //nameToCSharpName.Add("Gujarati", "gu-IN");
+            //nameToCSharpName.Add("Hausa", "ha-NG");
+            //nameToCSharpName.Add("Hebrew", "he-IL");
+            //nameToCSharpName.Add("Hindi", "hi-IN");
+            //nameToCSharpName.Add("Croatian", "hr-HR");
+            //nameToCSharpName.Add("Hungarian", "hu-HU");
+            //nameToCSharpName.Add("Armenian", "hy-AM");
+            //nameToCSharpName.Add("Indonesian", "id-ID");
+            //nameToCSharpName.Add("Igbo", "ig-NG");
+            //nameToCSharpName.Add("Icelandic", "is-IS");
+            //nameToCSharpName.Add("Italian", "it-IT");
+            //nameToCSharpName.Add("Inuktitut", "iu-CA");
+            //nameToCSharpName.Add("Japanese", "ja-JP");
+            //nameToCSharpName.Add("Georgian", "ka-GE");
+            //nameToCSharpName.Add("Kazakh", "kk-KZ");
+            //nameToCSharpName.Add("Khmer", "km-KH");
+            //nameToCSharpName.Add("Kannada", "kn-IN");
+            //nameToCSharpName.Add("Korean", "ko-KR");
+            //nameToCSharpName.Add("Konkani", "kok-IN");
+            //nameToCSharpName.Add("Kashmiri", "ks");
+            //nameToCSharpName.Add("Kirghiz", "ky-KG");
+            //nameToCSharpName.Add("Lao", "lo-LA");
+            //nameToCSharpName.Add("Lithuanian", "lt-LT");
+            //nameToCSharpName.Add("Latvian", "lv-LV");
+            //nameToCSharpName.Add("Maori", "mi-NZ");
+            //nameToCSharpName.Add("Macedonian", "mk-MK");
+            //nameToCSharpName.Add("Malayalam", "ml-IN");
+            //nameToCSharpName.Add("Mongolian", "mn-MN");
+            //nameToCSharpName.Add("Manipuri", "mni-IN");
+            //nameToCSharpName.Add("Marathi", "mr-IN");
+            //nameToCSharpName.Add("Malay", "ms-MY");
+            //nameToCSharpName.Add("Maltese", "mt-MT");
+            //nameToCSharpName.Add("Burmese", "my-MM");
+            //nameToCSharpName.Add("Danish_Norwegian", "nb-NO");
+            //nameToCSharpName.Add("Nepali", "ne-NP");
+            //nameToCSharpName.Add("Dutch", "nl-NL");
+            //nameToCSharpName.Add("Norwegian", "nn-NO");
+            //nameToCSharpName.Add("Oriya", "or-IN");
+            //nameToCSharpName.Add("Punjabi", "pa-IN");
+            //nameToCSharpName.Add("Polish", "pl-PL");
+            //nameToCSharpName.Add("Pashto", "ps-AF");
+            //nameToCSharpName.Add("Portuguese", "pt-PT");
+            //nameToCSharpName.Add("Romanian", "ro-RO");
+            //nameToCSharpName.Add("Russian", "ru-RU");
+            //nameToCSharpName.Add("Sanskrit", "sa-IN");
+            //nameToCSharpName.Add("Sindhi", "sd-IN");
+            //nameToCSharpName.Add("Slovak", "sk-SK");
+            //nameToCSharpName.Add("Slovenian", "sl-SI");
+            //nameToCSharpName.Add("Somali", "so-SO");
+            //nameToCSharpName.Add("Albanian", "sq-AL");
+            //nameToCSharpName.Add("Serbian_Cyrillic", "sr-YU");
+            //nameToCSharpName.Add("Serbian_Latin", "sh-BA");
+            //nameToCSharpName.Add("Swedish", "sv-SE");
+            //nameToCSharpName.Add("Swahili", "sw-KE");
+            //nameToCSharpName.Add("Tamil", "ta-IN");
+            //nameToCSharpName.Add("Telugu", "te-IN");
+            //nameToCSharpName.Add("Tajik", "tg-TJ");
+            //nameToCSharpName.Add("Thai", "th-TH");
+            //nameToCSharpName.Add("Turkmen", "tk-TM");
+            //nameToCSharpName.Add("Tswana", "tn-BW");
+            //nameToCSharpName.Add("Turkish", "tr-TR");
+            //nameToCSharpName.Add("Tatar", "tt-RU");
+            //nameToCSharpName.Add("Ukrainian", "uk-UA");
+            //nameToCSharpName.Add("Urdu", "ur-PK");
+            //nameToCSharpName.Add("Uzbek_Latin", "uz-UZ");
+            //nameToCSharpName.Add("Venda", "ven-ZA");
+            //nameToCSharpName.Add("Vietnamese", "vi-VN");
+            //nameToCSharpName.Add("Yoruba", "yo-NG");
+            //nameToCSharpName.Add("Chinese", "zh-CN");
+            //nameToCSharpName.Add("Zulu", "zu-ZA");
+        }
+
+        public QNameManager.QName name;
+        public CompareInfo collator;
+        public CultureInfo locale;
+        public static Collation defaultCollation = new Collation();
+        //bool equalIsIdentical = true;
+
+        public Collation()
+        {
+#if !SILVERLIGHT && !PLATFORM_COMPACTFRAMEWORK
+            locale = CultureInfo.GetCultureInfo("en-US");
+            collator = CompareInfo.GetCompareInfo("en-US");
+#else
+            locale = CultureInfo.InvariantCulture;
+            collator = CultureInfo.InvariantCulture.CompareInfo;
+#endif
+
+            name = QNameManager.newInfoSchemaObjectName(locale.EnglishName, true,
+                SchemaObjectTypes.COLLATION);
+
+        }
+
+        //public Iterator getCollationsIterator()
+        //{
+        //    return nameToCSharpName.keySet().iterator();
+        //}
+
+        //public Iterator getLocalesIterator()
+        //{
+        //    return nameToCSharpName.values().iterator();
+        //}
+
+        public void setCollationAsLocale()
+        {
+            locale = CultureInfo.CurrentCulture;
+            collator = CultureInfo.CurrentCulture.CompareInfo;
+        }
+
+        public void setCollation(string newName)
+        {
+#if !SILVERLIGHT && !PLATFORM_COMPACTFRAMEWORK
+            string jname = (String)Collation.nameToCSharpName[newName];
+
+            if (jname == null)
+            {
+                throw Error.error(ErrorCode.X_42501, newName);
+            }
+
+            name.rename(newName, true);
+
+                    
+            locale = CultureInfo.GetCultureInfo(jname);
+            collator = CompareInfo.GetCompareInfo(jname);
+
+            //equalIsIdentical = false;
+
+#endif
+        }
+
+        /**
+         * returns -1, 0 or +1
+         */
+        public int compare(string a, string b)
+        {
+
+            int i;
+
+            if (collator == null)
+            {
+                i = a.CompareTo(b);
+            }
+            else
+            {
+                i = collator.Compare(a, b);
+            }
+
+            return (i == 0) ? 0
+                            : (i < 0 ? -1
+                                     : 1);
+        }
+
+        public int compareIgnoreCase(string a, string b)
+        {
+
+            int i;
+
+            if (collator == null)
+            {
+                i = string.Compare(a, b, StringComparison.OrdinalIgnoreCase);
+            }
+            else
+            {
+                i = collator.Compare(toUpperCase(a), toUpperCase(b));
+            }
+
+            return (i == 0) ? 0
+                            : (i < 0 ? -1
+                                     : 1);
+        }
+
+        public string toUpperCase(string s)
+        {
+            return s.ToUpper(locale);
+        }
+
+        public string toLowerCase(string s)
+        {
+            return s.ToLower(locale);
+        }
+
+
+        /**
+    * Returns true if two equal strings always contain identical sequence of
+    * characters for the current collation, e.g. English language.
+    */
+        public bool isEqualAlwaysIdentical()
+        {
+            return collator == null;
+        }
+
+        public static Collation getDefaultInstance()
+        {
+            return defaultCollation;
+        }
+
+        public virtual QNameManager.QName getName()
+        {
+            return name;
+        }
+
+        public virtual int getType()
+        {
+            return SchemaObjectTypes.COLLATION;
+        }
+
+        public virtual QNameManager.QName getSchemaName()
+        {
+            return SqlInvariants.INFORMATION_SCHEMA_QNAME;
+        }
+
+        public virtual QNameManager.QName getCatalogName()
+        {
+            return null;
+        }
+
+        public virtual Grantee getOwner()
+        {
+            return SqlInvariants.INFORMATION_SCHEMA_QNAME.owner;
+        }
+
+        public virtual OrderedHashSet getReferences()
+        {
+            return new OrderedHashSet();
+        }
+
+        public virtual OrderedHashSet getComponents()
+        {
+            return null;
+        }
+
+        public virtual void compile(Session session, SchemaObject parentObject) { }
+
+        public virtual String getSQL()
+        {
+            return "";
+        }
+
+
+    }
+}

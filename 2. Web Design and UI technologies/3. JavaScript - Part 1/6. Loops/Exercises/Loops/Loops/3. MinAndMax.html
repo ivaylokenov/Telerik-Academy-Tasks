@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Min and max</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        var sequence = [-5, 4, 10, -7, 15, -21, 4, -5];
+        var max = sequence[0];
+        var min = sequence[0];
+        for (var i = 0; i < sequence.length; i++) {
+            if (max < sequence[i]) {
+                max = sequence[i];
+            }
+            if (min > sequence[i]) {
+                min = sequence[i];
+            }
+        }
+        jsConsole.writeLine("Max is: " + max);
+        jsConsole.writeLine("Min is: " + min);
+    </script>
+</body>
+</html>

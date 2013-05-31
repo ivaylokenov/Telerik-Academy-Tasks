@@ -1,0 +1,11 @@
+0 X = 0
+1 Y = 1
+2               Z                      =              X             +               Y
+3 IF X=Z THEN    GOTO 0
+4 PRINT X
+5 PRINT Y
+6 PRINT Z
+9998    X = X + Z
+9999 IF    X    <           1000  THEN    GOTO     4
+10000 STOP
+RUN

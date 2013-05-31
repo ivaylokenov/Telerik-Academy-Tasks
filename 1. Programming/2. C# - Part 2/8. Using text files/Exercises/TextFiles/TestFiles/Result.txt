@@ -1,0 +1,6 @@
+014 times found: pet
+006 times found: edno
+004 times found: dve
+003 times found: tri
+001 times found: osym
+000 times found: deset

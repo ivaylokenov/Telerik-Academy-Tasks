@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Sign of product</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        var first = prompt("Enter first number:");
+        var second = prompt("Enter second number:");
+        var third = prompt("Enter third number:");
+        var negativeNumbers = 0;
+
+        if (first < 0) {
+            negativeNumbers++;
+        }
+
+        if (second < 0) {
+            negativeNumbers++;
+        }
+
+        if (third < 0) {
+            negativeNumbers++;
+        }
+
+        if (negativeNumbers % 2 == 0) {
+            jsConsole.writeLine("Product has sign +.");
+        }
+        else {
+            jsConsole.writeLine("Product has sign -.");
+        }
+    </script>
+</body>
+</html>

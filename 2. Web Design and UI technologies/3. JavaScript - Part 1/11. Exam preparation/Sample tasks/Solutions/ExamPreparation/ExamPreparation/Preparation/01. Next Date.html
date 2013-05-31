@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Sample exams</title>
+	<link href="styles/js-console.css" rel="stylesheet" />
+	<style>
+		#number {
+			border: 1px solid black;
+			padding: 5px 15px;
+			background-color: black;
+			color: white;
+			font-family: Consolas;
+			margin-bottom: 5px;
+		}
+
+		a {
+			color: black;
+			border: 1px solid black;
+			padding: 5px 15px;
+			text-decoration: none;
+			display: inline-block;
+			margin: 15px 0;
+		}
+
+			a:hover {
+				text-decoration: underline;
+			}
+	</style>
+</head>
+<body>
+	<a href="#" onclick="print()">Print</a>
+	<div id="console">
+	</div>
+	<script src="scripts/js-console.js">	  
+	</script>
+	<script>
+	    function print() {
+	        var args = [1,11,2011];
+	        jsConsole.writeLine(Solve(args));
+	    }
+
+	    function Solve(args){
+	        var day = args[0];
+	        var month = args[1];
+	        var year = args[2];
+	
+	        var leapYear = (year % 4 == 0);
+	
+	        day++;
+	
+	        //31 days months
+	        if (day == 32 && (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)){
+	            month++;
+	            day = 1;
+	        } //30 days months
+	        else if (day == 31 && (month == 4 || month == 6 || month == 9 || month == 11))
+	        {
+	            month++;
+	            day = 1;
+	        } //february no leap year
+	        else if (day == 29 && month == 2 && leapYear == false)
+	        {
+	            month++;
+	            day = 1;
+	        } //february leap year
+	        else if (day == 30 && month == 2 && leapYear)
+	        {
+	            month++;
+	            day = 1;
+	        }
+	
+	        if (month == 13)
+	        {
+	            month = 1;
+	            year++;
+	        }
+	
+	        return String(day + "." + month + "." + year);
+	    }
+	</script>
+</body>
+</html>

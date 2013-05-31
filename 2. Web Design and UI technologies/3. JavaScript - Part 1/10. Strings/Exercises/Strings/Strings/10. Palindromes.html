@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Palindomes</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        #number {
+            border: 1px solid black;
+            padding: 5px 15px;
+            background-color: black;
+            color: white;
+            font-family: Consolas;
+            margin-bottom: 5px;
+        }
+
+        a {
+            color: black;
+            border: 1px solid black;
+            padding: 5px 15px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 15px 0;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+    </style>
+</head>
+<body>
+    <a href="#" onclick="print()">Print</a>
+    <div id="console">
+    </div>
+    <script src="scripts/js-console.js">	  
+    </script>
+    <script>
+        function print() {
+            var text = "abba ne6to si drugo ne6to lamal pagap drug ovca boklici koza oktopod shuruhs";
+            jsConsole.writeLine(extractPalindomes(text));
+        }
+
+        function extractPalindomes(text) {
+            var words = text.split(' ');
+            var result = [];
+
+            for (var i = 0; i < words.length; i++) {
+                
+                var word = words[i];
+                var isPalindome = true;
+
+                for (var j = 0; j < word.length / 2; j++) {
+                    if (word[j] != word[word.length - 1 - j])
+                    {
+                        isPalindome = false;
+                    }
+                }
+
+                if (isPalindome) {
+                    result.push(word);
+                }
+            }
+
+            return result;
+        }
+    </script>
+</body>
+</html>

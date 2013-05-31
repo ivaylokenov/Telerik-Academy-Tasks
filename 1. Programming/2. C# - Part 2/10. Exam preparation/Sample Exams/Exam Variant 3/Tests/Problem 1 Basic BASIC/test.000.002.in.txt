@@ -1,0 +1,8 @@
+0    X   =    1
+1    Y     =     2
+2 Z    =    Y    -    X
+5    PRINT          X
+6    PRINT     Z
+10          X   =   X    +1
+20   IF  X  =  Y  THEN  GOTO 2
+RUN

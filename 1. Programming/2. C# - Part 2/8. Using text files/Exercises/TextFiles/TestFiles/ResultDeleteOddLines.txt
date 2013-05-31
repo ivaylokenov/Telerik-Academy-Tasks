@@ -1,0 +1,7 @@
+finding the contiguous subarray within a one-dimensional array 
+the largest sum. For example, for the sequence of values -2, 1, 
+sum is 4, -1, 2, 1, with sum 6.
+The problem was first posed by Ulf Grenander of Brown University 
+of patterns in digitized images. A linear time algorithm was found
+(Bentley 1984).start
+

@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Exchange values</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        var first = prompt("Enter first integer:");
+        var second = prompt("Enter second integer:");
+
+        if (first > second) {
+            first = first ^ second;
+            second = first ^ second;
+            first = first ^ second;
+        }
+
+        jsConsole.writeLine("First is:" + first);
+        jsConsole.writeLine("Second is:" + second)
+    </script>
+</body>
+</html>

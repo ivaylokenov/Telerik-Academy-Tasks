@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration</title>
+    <style>
+        form input[type=submit] {
+            background: url("images/submit.jpg") no-repeat center center;
+            width: 55px;
+            height: 64px;
+            border: none;
+            color: transparent;
+        }
+
+        fieldset {
+            border: 1px;
+        }
+    </style>
+</head>
+<body>
+    <form name="registration" method="post" action="something.php">
+        <fieldset>
+            <legend>
+                <span style="font-size: 30px; font-weight: bold;">Registration</span>
+            </legend>
+
+            <label for="member">Member name</label>
+            <input type="text" id="member" required="required" />
+            <b>*req</b>
+            <br />
+            <label for="mail">Email adress</label>
+            <input type="email" id="mail" required="required" pattern="^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$" />
+            <b>*req</b>
+            <br />
+            <label for="school">
+                School</label>
+            <input type="text" id="school" required="required" />
+            <b>*req</b>
+            <br />
+            <input type="submit" name="submit" value="Send Form" />
+        </fieldset>
+    </form>
+</body>
+</html>

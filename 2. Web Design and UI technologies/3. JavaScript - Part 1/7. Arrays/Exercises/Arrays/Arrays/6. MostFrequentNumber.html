@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Most Frequent Number</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        var array = [4, 1, 1, 4, 2, 3, 4, 4, 1, 1, 1, 1, 1, 2, 4, 9, 3];
+        var frequentNumber = 0;
+        var numberOfRepetitions = 1;
+        var maximumRepetitions = 0;
+        var mostFrequentNumber = 0;
+        for (var i = 0; i < array.length - 1; i++) {
+            for (var j = i + 1; j < array.length; j++) {
+                if (array[i] == array[j]) {
+                    frequentNumber = array[i];
+                    numberOfRepetitions++;
+                }
+            }
+
+            if (maximumRepetitions < numberOfRepetitions) {
+                maximumRepetitions = numberOfRepetitions;
+                mostFrequentNumber = frequentNumber;
+            }
+            numberOfRepetitions = 1;
+
+        }
+        jsConsole.writeLine(mostFrequentNumber + " repeated " + maximumRepetitions);
+    </script>
+</body>
+</html>
+

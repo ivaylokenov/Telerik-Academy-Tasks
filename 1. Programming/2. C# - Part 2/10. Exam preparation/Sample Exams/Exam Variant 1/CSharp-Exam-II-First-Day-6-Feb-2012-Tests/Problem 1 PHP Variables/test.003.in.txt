@@ -1,0 +1,13 @@
+<?php
+// Just another $varrr
+/*
+/*
+inception
+*/
+$googleit = "123"; /* just comment $vvv */
+/*
+$varvar = "123";
+*/
+# strange comment $strange_var
+// $everything$_ends$here:
+?>

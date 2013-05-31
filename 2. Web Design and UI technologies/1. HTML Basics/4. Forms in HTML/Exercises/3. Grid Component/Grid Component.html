@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Products</title>
+	<style type="text/css">
+		table
+		{
+			border-collapse: collapse;
+		}
+		td, th
+		{
+			padding: 5px;
+			border: 1px solid #949494;
+		}
+		.col1
+		{
+			width: 100px;
+			text-align: left;
+		}
+		.col2
+		{
+			width: 300px;
+			text-align: left;
+		}
+		.col3
+		{
+			width: 200px;
+			text-align: left;
+		}
+		.col4
+		{
+			width: 200px;
+			text-align: left;
+		}
+		.col5
+		{
+			width: 200px;
+			text-align: left;
+		}
+		.col6
+		{
+			width: 100px;
+			text-align: left;
+		}
+		.row1
+		{
+			background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#EDEDED), to(#ABABAB));
+		}
+		.row2
+		{
+			background-color: #ABABAB;
+		}
+		.button
+		{
+			width: 24px; 
+			height: 24px;
+			border: 1px solid #949494; 
+			-moz-border-radius: 4px; 
+			border-radius: 4px;
+			font-weight: bold;
+			text-align: left;
+			padding: 4px;
+		}
+		.button:active
+		{
+			background-color: #989898;
+		}
+		.drop
+		{ 
+			height: 24px;
+			border: 1px solid #949494; 
+			-moz-border-radius: 4px; 
+			border-radius: 4px;
+			font-weight: bold;
+			text-align: left;
+			padding: 4px;
+		}
+		.footer
+		{
+			background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#EDEDED), to(#ABABAB));
+		}
+	</style>
+</head>
+<body>
+	<form name="Products" method="get">
+		<table>
+			<thead>
+				<tr class="row1">
+					<th class="col1">
+						Product ID
+					</th>
+					<th class="col2">
+						Product name
+					</th>
+					<th class="col3">
+						Unit price
+					</th>
+					<th class="col4">
+						Quantity per unit
+					</th>
+					<th class="col5">
+						Units in stock
+					</th>
+					<th class="col6">
+						Discontinued
+					</th>
+				</tr>
+				<tr class="row2">
+					<th class="col1">
+						<input type="text" style="width: 50px;" />
+					</th>
+					<th class="col2">
+						<input type="text" style="width: 150px;" />
+					</th>
+					<th class="col3">
+						<input type="text" style="width: 80px;" />
+						<input type="button" class="button" value="" />
+					</th>
+					<th class="col4">
+						<input type="text" style="width: 100px;" />
+					</th>
+					<th class="col5">
+						<input type="text" style="width: 100px;" />
+						<input type="button" class="button" />
+					</th>
+					<th class="col6">
+						<input type="checkbox" />
+						<input type="button" class="button" />
+					</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<td class="footer" colspan="6">
+						<input type="button" class="button" value="|&#9668"/>
+						<input type="button" class="button" value="&#9668"/>
+						<a class="link" href="">1</a>
+						<a href="">2</a>
+						<a href="">3</a>
+						<a href="">4</a>
+						<a href="">5</a>
+						<a href="">6</a>
+						<a href="">7</a>
+						<a href="">8</a>
+						<a href="">9</a>
+						<a href="">10</a>
+						...
+						<input type="button" class="button" value="&#9658"/>
+						<input type="button" class="button" value="&#9658'"/>
+						Page size:
+						<select class="drop" name="pagesize">
+							<option value="1" selected="selected">10</option>
+							<option value="2">20</option>
+							<option value="2">30</option>
+							<option value="2">40</option>
+							<option value="2">50</option>
+						</select>
+					</td>
+				</tr>
+			</tfoot>
+			<tbody>
+				<tr>
+					<td>
+						1
+					</td>
+					<td>
+						Chai
+					</td>
+					<td>
+						$18.00
+					</td>
+					<td>
+						10 boxes x 20 bags
+					</td>
+					<td>
+						39
+					</td>
+					<td>
+						<input type="checkbox" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						2
+					</td>
+					<td>
+						Chans
+					</td>
+					<td>
+						$19.00
+					</td>
+					<td>
+						24 - 12 oz bottles
+					</td>
+					<td>
+						17
+					</td>
+					<td>
+						<input type="checkbox" checked="checked" disabled="disabled" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						3
+					</td>
+					<td>
+						Aniseed Syrup
+					</td>
+					<td>
+						$10.00
+					</td>
+					<td>
+						12 - 550 ml bottles
+					</td>
+					<td>
+						13
+					</td>
+					<td>
+						<input type="checkbox" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						4
+					</td>
+					<td>
+						Chef Anton's Cajun Mix
+					</td>
+					<td>
+						$24.00
+					</td>
+					<td>
+						36 Boxes
+					</td>
+					<td>
+						34
+					</td>
+					<td>
+						<input type="checkbox" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						5
+					</td>
+					<td>
+						Chef Anton's Cajun Seasoning
+					</td>
+					<td>
+						$28.00
+					</td>
+					<td>
+						25 Boxes
+					</td>
+					<td>
+						38
+					</td>
+					<td>
+						<input type="checkbox" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						6
+					</td>
+					<td>
+						Chai
+					</td>
+					<td>
+						$18.00
+					</td>
+					<td>
+						10 boxes x 20 bags
+					</td>
+					<td>
+						39
+					</td>
+					<td>
+						<input type="checkbox" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						7
+					</td>
+					<td>
+						Chans
+					</td>
+					<td>
+						$19.00
+					</td>
+					<td>
+						24 - 12 oz bottles
+					</td>
+					<td>
+						17
+					</td>
+					<td>
+						<input type="checkbox" checked="checked" disabled="disabled" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						8
+					</td>
+					<td>
+						Aniseed Syrup
+					</td>
+					<td>
+						$10.00
+					</td>
+					<td>
+						12 - 550 ml bottles
+					</td>
+					<td>
+						13
+					</td>
+					<td>
+						<input type="checkbox" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						9
+					</td>
+					<td>
+						Chef Anton's Cajun Mix
+					</td>
+					<td>
+						$24.00
+					</td>
+					<td>
+						36 Boxes
+					</td>
+					<td>
+						34
+					</td>
+					<td>
+						<input type="checkbox" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						10
+					</td>
+					<td>
+						Chef Anton's Cajun Seasoning
+					</td>
+					<td>
+						$28.00
+					</td>
+					<td>
+						25 Boxes
+					</td>
+					<td>
+						38
+					</td>
+					<td>
+						<input type="checkbox" />
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+</body>
+</html>

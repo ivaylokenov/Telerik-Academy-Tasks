@@ -1,0 +1,469 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Sample exams</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        #number {
+            border: 1px solid black;
+            padding: 5px 15px;
+            background-color: black;
+            color: white;
+            font-family: Consolas;
+            margin-bottom: 5px;
+        }
+
+        a {
+            color: black;
+            border: 1px solid black;
+            padding: 5px 15px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 15px 0;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+    </style>
+</head>
+<body>
+    <a href="#" onclick="print()">Print</a>
+    <div id="console">
+    </div>
+    <script src="scripts/js-console.js">	  
+    </script>
+    <script>
+        function print() {
+            var args = ["def maxy max[100]", "def summary [0]", "combo [maxy, maxy,maxy,maxy, 5,6]", "summary sum[combo, maxy, -18000]", "def pe6o avg[summary,maxy]", "sum[7, pe6o]"];
+            jsConsole.writeLine(Solve(args));
+        }
+
+        function Solve(args) {
+
+            var variables = [];
+
+            for (var i = 0; i < args.length - 1; i++) {
+
+                var miss = false;
+                var notAdded = false;
+
+                var currentCommand = args[i];
+                var parts = currentCommand.split("[");
+
+                var firstPart = parts[0].split(" ");
+                var secondPart = "[" + parts[1];
+
+                for (var o = 0; o < firstPart.length; o++) {
+
+                    if (firstPart[o] == "") {
+                        continue;
+                    }
+                    else if (firstPart[o].trim() == "def") {
+
+                        for (var j = o + 1; j < firstPart.length; j++) {
+                            if (firstPart[j] == "") {
+                                continue;
+                            }
+                            else {
+                                var currentVariable = new Variable(firstPart[j].trim(), 0);
+                                break;
+                            }
+                        }
+
+                        var lastCommand = "";
+
+                        for (var j = firstPart.length - 1; j >= 0; j--) {
+                            if (firstPart[j] == "") {
+                                continue;
+                            }
+                            else {
+                                lastCommand = firstPart[j].trim();
+                                break;
+                            }
+                        }
+
+                        if (currentVariable.name == lastCommand) {
+
+                            currentVariable.value = [];
+
+                            secondPart = secondPart.substring(1, secondPart.length - 1);
+
+                            secondPart = secondPart.split(",");
+
+                            var wasFound = false;
+
+                            for (var j = 0; j < secondPart.length; j++) {
+                                if (isNaN(parseInt(secondPart[j]))) {
+
+                                    for (var k = 0; k < variables.length; k++) {
+                                        if (variables[k].name == secondPart[j].trim()) {
+
+                                            for (var g = 0; g < variables[k].value.length; g++) {
+                                                currentVariable.value.push(variables[k].value[g]);
+                                                wasFound = true;
+                                            }
+                                        }
+                                    }
+
+                                    if (wasFound == false) {
+                                        miss = true;
+                                    }
+
+                                }
+                                else {
+                                    currentVariable.value.push(parseInt(secondPart[j]));
+                                }
+                            }
+                        }
+                        else {
+                            if (lastCommand == "sum") {
+                                currentVariable.value = [];
+
+                                secondPart = secondPart.substring(1, secondPart.length - 1);
+
+                                secondPart = secondPart.split(",");
+
+                                for (var j = 0; j < secondPart.length; j++) {
+                                    if (isNaN(parseInt(secondPart[j]))) {
+
+                                        for (var k = 0; k < variables.length; k++) {
+                                            if (variables[k].name == secondPart[j].trim()) {
+
+                                                for (var g = 0; g < variables[k].value.length; g++) {
+                                                    currentVariable.value.push(variables[k].value[g]);
+                                                }
+
+                                            }
+                                        }
+
+                                    }
+                                    else {
+                                        currentVariable.value.push(parseInt(secondPart[j]));
+                                    }
+                                }
+
+                                var sum = 0;
+
+                                for (var j = 0; j < currentVariable.value.length; j++) {
+                                    sum += currentVariable.value[j];
+                                }
+
+                                currentVariable.value = [sum];
+                            }
+
+                            //min
+                            if (lastCommand == "min") {
+                                currentVariable.value = [];
+
+                                secondPart = secondPart.substring(1, secondPart.length - 1);
+
+                                secondPart = secondPart.split(",");
+
+                                for (var j = 0; j < secondPart.length; j++) {
+                                    if (isNaN(parseInt(secondPart[j]))) {
+
+                                        for (var k = 0; k < variables.length; k++) {
+                                            if (variables[k].name == secondPart[j].trim()) {
+
+                                                for (var g = 0; g < variables[k].value.length; g++) {
+                                                    currentVariable.value.push(variables[k].value[g]);
+                                                }
+
+                                            }
+                                        }
+
+                                    }
+                                    else {
+                                        currentVariable.value.push(parseInt(secondPart[j]));
+                                    }
+                                }
+
+                                var min = 100000000000000;
+
+                                for (var j = 0; j < currentVariable.value.length; j++) {
+                                    if (min > currentVariable.value[j]) {
+                                        min = currentVariable.value[j];
+                                    }
+                                }
+
+                                currentVariable.value = [min];
+                            }
+
+                            //max
+                            if (lastCommand == "max") {
+                                currentVariable.value = [];
+
+                                secondPart = secondPart.substring(1, secondPart.length - 1);
+
+                                secondPart = secondPart.split(",");
+
+                                for (var j = 0; j < secondPart.length; j++) {
+                                    if (isNaN(parseInt(secondPart[j]))) {
+
+                                        for (var k = 0; k < variables.length; k++) {
+                                            if (variables[k].name == secondPart[j].trim()) {
+
+                                                for (var g = 0; g < variables[k].value.length; g++) {
+                                                    currentVariable.value.push(variables[k].value[g]);
+                                                }
+
+                                            }
+                                        }
+
+                                    }
+                                    else {
+                                        currentVariable.value.push(parseInt(secondPart[j]));
+                                    }
+                                }
+
+                                var min = -100000000000000;
+
+                                for (var j = 0; j < currentVariable.value.length; j++) {
+                                    if (min < currentVariable.value[j]) {
+                                        min = currentVariable.value[j];
+                                    }
+                                }
+
+                                currentVariable.value = [min];
+                            }
+
+                            //avg
+                            if (lastCommand == "avg") {
+                                currentVariable.value = [];
+
+                                secondPart = secondPart.substring(1, secondPart.length - 1);
+
+                                secondPart = secondPart.split(",");
+
+                                for (var j = 0; j < secondPart.length; j++) {
+                                    if (isNaN(parseInt(secondPart[j]))) {
+
+                                        for (var k = 0; k < variables.length; k++) {
+                                            if (variables[k].name == secondPart[j].trim()) {
+
+                                                for (var g = 0; g < variables[k].value.length; g++) {
+                                                    currentVariable.value.push(variables[k].value[g]);
+                                                }
+
+                                            }
+                                        }
+
+                                    }
+                                    else {
+                                        currentVariable.value.push(parseInt(secondPart[j]));
+                                    }
+                                }
+
+                                var avg = 0;
+
+                                for (var j = 0; j < currentVariable.value.length; j++) {
+                                    avg += currentVariable.value[j];
+                                }
+
+                                avg = avg / currentVariable.value.length;
+                                currentVariable.value = [Math.floor(avg)];
+                            }
+                        }
+                    }
+                    else {
+                        var notAdded = true;
+                    }
+                }
+
+                if (notAdded) {
+                    continue;
+                }
+
+                if (variables.lenght != 0) {
+
+                    for (var p = 0; p < variables.length; p++) {
+                        if (variables[p].name == currentVariable.name) {
+                            continue;
+                        }
+                    }
+                }
+
+                if (miss == false) {
+                    variables.push(currentVariable);
+                }
+                else {
+                    miss = false;
+                }
+            }
+
+            var finish = args[args.length - 1];
+
+            finish = finish.split("[");
+
+            if (finish[0].trim() == "avg") {
+
+
+                var currentVariable = new Variable("temp", []);
+
+                secondPart = finish[1].substring(0, finish[1].indexOf("]"));
+
+                secondPart = secondPart.split(",");
+
+                for (var j = 0; j < secondPart.length; j++) {
+                    if (isNaN(parseInt(secondPart[j]))) {
+
+                        for (var k = 0; k < variables.length; k++) {
+                            if (variables[k].name == secondPart[j].trim()) {
+
+                                for (var g = 0; g < variables[k].value.length; g++) {
+                                    currentVariable.value.push(variables[k].value[g]);
+                                }
+
+                            }
+                        }
+
+                    }
+                    else {
+                        currentVariable.value.push(parseInt(secondPart[j]));
+                    }
+                }
+
+                var avg = 0;
+
+                for (var j = 0; j < currentVariable.value.length; j++) {
+                    avg += currentVariable.value[j];
+                }
+
+                avg = avg / currentVariable.value.length;
+                return Math.floor(avg);
+            }
+
+            if (finish[0].trim() == "sum") {
+
+
+                var currentVariable = new Variable("temp", []);
+
+                secondPart = finish[1].substring(0, finish[1].indexOf("]"));
+
+                secondPart = secondPart.split(",");
+
+                for (var j = 0; j < secondPart.length; j++) {
+                    if (isNaN(parseInt(secondPart[j]))) {
+
+                        for (var k = 0; k < variables.length; k++) {
+                            if (variables[k].name == secondPart[j].trim()) {
+
+                                for (var g = 0; g < variables[k].value.length; g++) {
+                                    currentVariable.value.push(variables[k].value[g]);
+                                }
+
+                            }
+                        }
+
+                    }
+                    else {
+                        currentVariable.value.push(parseInt(secondPart[j]));
+                    }
+                }
+
+                var avg = 0;
+
+                for (var j = 0; j < currentVariable.value.length; j++) {
+                    avg += currentVariable.value[j];
+                }
+
+                return avg;
+            }
+
+            if (finish[0].trim() == "min") {
+
+
+                var currentVariable = new Variable("temp", []);
+
+                secondPart = finish[1].substring(0, finish[1].indexOf("]"));
+
+                secondPart = secondPart.split(",");
+
+                for (var j = 0; j < secondPart.length; j++) {
+                    if (isNaN(parseInt(secondPart[j]))) {
+
+                        for (var k = 0; k < variables.length; k++) {
+                            if (variables[k].name == secondPart[j].trim()) {
+
+                                for (var g = 0; g < variables[k].value.length; g++) {
+                                    currentVariable.value.push(variables[k].value[g]);
+                                }
+
+                            }
+                        }
+
+                    }
+                    else {
+                        currentVariable.value.push(parseInt(secondPart[j]));
+                    }
+                }
+
+                var min = 100000000000000;
+
+                for (var j = 0; j < currentVariable.value.length; j++) {
+                    if (min > currentVariable.value[j]) {
+                        min = currentVariable.value[j];
+                    }
+                }
+
+                return min;
+            }
+
+            if (finish[0].trim() == "max") {
+
+
+                var currentVariable = new Variable("temp", []);
+
+                secondPart = finish[1].substring(0, finish[1].indexOf("]"));
+
+                secondPart = secondPart.split(",");
+
+                for (var j = 0; j < secondPart.length; j++) {
+                    if (isNaN(parseInt(secondPart[j]))) {
+
+                        for (var k = 0; k < variables.length; k++) {
+                            if (variables[k].name == secondPart[j].trim()) {
+
+                                for (var g = 0; g < variables[k].value.length; g++) {
+                                    currentVariable.value.push(variables[k].value[g]);
+                                }
+
+                            }
+                        }
+
+                    }
+                    else {
+                        currentVariable.value.push(parseInt(secondPart[j]));
+                    }
+                }
+
+                var min = -100000000000000;
+
+                for (var j = 0; j < currentVariable.value.length; j++) {
+                    if (min < currentVariable.value[j]) {
+                        min = currentVariable.value[j];
+                    }
+                }
+
+                return min;
+            }
+
+            finish = finish[1].substring(0, finish[1].indexOf("]"));
+            finish = finish.trim();
+
+            for (var i = 0; i < variables.length; i++) {
+                if (variables[i].name == finish) {
+                    return variables[i].value;
+                }
+            }
+
+        }
+
+        function Variable(name, value) {
+            this.name = name;
+            this.value = value;
+        }
+    </script>
+</body>
+</html>

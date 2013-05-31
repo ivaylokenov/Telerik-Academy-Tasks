@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Sample exams</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        #number {
+            border: 1px solid black;
+            padding: 5px 15px;
+            background-color: black;
+            color: white;
+            font-family: Consolas;
+            margin-bottom: 5px;
+        }
+
+        a {
+            color: black;
+            border: 1px solid black;
+            padding: 5px 15px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 15px 0;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+    </style>
+</head>
+<body>
+    <a href="#" onclick="print()">Print</a>
+    <div id="console">
+    </div>
+    <script src="scripts/js-console.js">	  
+    </script>
+    <script>
+        function print() {
+            var args = ["2 2", "0 0", "rr", "dl"];
+            jsConsole.writeLine(Solve(args));
+        }
+
+        function Solve(args) {
+            var NandM = args[0].split(" ");
+            var N = parseInt(NandM[0]);
+            var M = parseInt(NandM[1]);
+            var Start = args[1].split(" ");
+            var StartN = parseInt(Start[0]);
+            var StartM = parseInt(Start[1]);
+            var matrix = [];
+
+            for (var i = 0; i < N; i++) {
+                var currentLine = args[i + 2];
+                matrix.push(currentLine.split(""));
+            }
+
+            var numbersInMatrix = []
+
+            var counter = 1;
+
+            for (var i = 0; i < N; i++) {
+                var currentRow = [];
+                for (var j = 0; j < M; j++) {
+                    currentRow.push(counter);
+                    counter++;
+                }
+                numbersInMatrix.push(currentRow);
+            }
+
+            var currentRow = StartN;
+            var currentCol = StartM;
+            var pathSum = 0;
+            var pathCounter = 0;
+            var isOut = false;
+
+            while (true) {
+                pathCounter++;
+
+                if (currentRow < 0 || currentRow >= N || currentCol < 0 || currentCol >= M) {
+                    isOut = true;
+                    break;
+                }
+
+                pathSum += numbersInMatrix[currentRow][currentCol];
+
+                if (matrix[currentRow][currentCol] == "l") {
+                    matrix[currentRow][currentCol] = " ";
+                    currentCol--;
+                }
+                else if (matrix[currentRow][currentCol] == "r") {
+                    matrix[currentRow][currentCol] = " ";
+                    currentCol++;
+                }
+                else if (matrix[currentRow][currentCol] == "u") {
+                    matrix[currentRow][currentCol] = " ";
+                    currentRow--;
+                }
+                else if (matrix[currentRow][currentCol] == "d") {
+                    matrix[currentRow][currentCol] = " ";
+                    currentRow++;
+                }
+                else if (matrix[currentRow][currentCol] == " ") {
+                    pathCounter--;
+                    isOut = false;
+                    break;
+                }
+            }
+
+            if (isOut) {
+                return ("out " + pathSum);
+            }
+            else {
+
+                var counter = 0;
+
+                for (var i = 0; i < N; i++) {
+                    for (var j = 0; j < M; j++) {
+                        if (matrix[i][j] == " ") {
+                            counter++;
+                        }
+                    }
+                }
+
+                return ("lost " + counter);
+            }
+        }
+    </script>
+</body>
+</html>

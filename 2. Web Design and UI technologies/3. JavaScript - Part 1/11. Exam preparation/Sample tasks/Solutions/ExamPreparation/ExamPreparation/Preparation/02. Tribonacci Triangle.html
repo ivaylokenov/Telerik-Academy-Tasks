@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Sample exams</title>
+	<link href="styles/js-console.css" rel="stylesheet" />
+	<style>
+		#number {
+			border: 1px solid black;
+			padding: 5px 15px;
+			background-color: black;
+			color: white;
+			font-family: Consolas;
+			margin-bottom: 5px;
+		}
+
+		a {
+			color: black;
+			border: 1px solid black;
+			padding: 5px 15px;
+			text-decoration: none;
+			display: inline-block;
+			margin: 15px 0;
+		}
+
+			a:hover {
+				text-decoration: underline;
+			}
+	</style>
+</head>
+<body>
+	<a href="#" onclick="print()">Print</a>
+	<div id="console">
+	</div>
+	<script src="scripts/js-console.js">	  
+	</script>
+	<script>
+	    function print() {
+	        var args = [1, 2, 7, 11];
+	        console.log(Solve(args));
+	    }
+
+	    function Solve(args) {
+	        var input = [args[0], args[1], args[2]];
+	        var lines = args[3];
+
+	        var currentLine = 3;
+	        var currentNumber = 3;
+	        var output = String(args[0] + "\n" + args[1] + " " + args[2] + "\n");
+
+	        for (var i = currentLine; i <= lines; i++) {
+
+	            for (var j = 0; j < i; j++) {
+	                input.push(parseInt(input[currentNumber - 1]) + parseInt(input[currentNumber - 2]) + parseInt(input[currentNumber - 3]));
+	                output += String(input[currentNumber]);
+	                if (j != i - 1)
+	                {
+	                    output += String(" ");
+	                }
+	                currentNumber++;
+	            }
+
+	            output += "\n";
+	        }
+
+	        return output;
+	    }
+	</script>
+</body>
+</html>

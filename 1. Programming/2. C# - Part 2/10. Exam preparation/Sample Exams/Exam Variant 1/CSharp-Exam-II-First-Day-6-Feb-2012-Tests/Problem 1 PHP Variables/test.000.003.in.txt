@@ -1,0 +1,5 @@
+<?php
+# this is $comment
+$valid_var='"text"...{$valid_var}';
+$just="Just another var $Just...";$just=$code;
+?>

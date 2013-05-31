@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Numbers In Array</title>
+	<link href="styles/js-console.css" rel="stylesheet" />
+	<style>
+		#number {
+			border: 1px solid black;
+			padding: 5px 15px;
+			background-color: black;
+			color: white;
+			font-family: Consolas;
+			margin-bottom: 5px;
+		}
+
+		a {
+			color: black;
+			border: 1px solid black;
+			padding: 5px 15px;
+			text-decoration: none;
+			display: inline-block;
+			margin: 15px 0;
+		}
+
+			a:hover {
+				text-decoration: underline;
+			}
+	</style>
+</head>
+<body>
+	<a href="#" onclick="buttonClick()">Print</a>
+	<div id="console">
+	</div>
+	<script src="scripts/js-console.js">	  
+	</script>
+	<script>
+	    function buttonClick() {
+	        var someArray = [1, 1, 2, 3, 4, 5, 6, 1, 2, 4, 1, ];
+            
+	        jsConsole.write(NumbersInArray(someArray, 1));
+	    }
+
+	    function NumbersInArray(array, number) {
+
+	        var counter = 0;
+
+	        for (var i = 0; i < array.length; i++) {
+	            if (array[i] === number)
+	            {
+	                counter++;
+	            }
+	        }
+
+	        return counter;
+	    }
+	</script>
+</body>
+</html>
+
+

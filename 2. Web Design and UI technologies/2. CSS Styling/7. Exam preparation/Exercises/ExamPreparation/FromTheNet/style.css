@@ -1,0 +1,69 @@
+﻿body,
+div,
+ul,
+li,
+a {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: Verdana;
+  font-size: 14px;
+}
+body #cssmenu {
+  width: 948px;
+}
+body #cssmenu > ul {
+  background: #CFCFCF;
+}
+body #cssmenu ul {
+  margin-top: 18px;
+  margin-left: 5px;
+  border-bottom: 4px solid #057BB1;
+}
+body #cssmenu ul li {
+  display: inline-block;
+  padding: 10px 30px;
+  position: relative;
+}
+body #cssmenu ul li.active {
+  background: #057BB1;
+  position: relative;
+  bottom: 10px;
+}
+body #cssmenu ul li.active a {
+  color: #FFF7F6;
+}
+body #cssmenu ul li:hover > ul {
+  display: block;
+  position: absolute;
+  top: 22px;
+  left: -10px;
+  border: 2px solid #057BB1;
+  border-top: none;
+  width: 200px;
+  background: #E0E0E0;
+  font-size: 0.9em;
+}
+body #cssmenu ul li:hover > ul > li {
+  display: block;
+  margin: 0;
+  padding: 15px;
+}
+body #cssmenu ul li:hover > ul > li:hover {
+  background: #949494;
+}
+body #cssmenu ul li:hover > ul > li:hover a {
+  color: white;
+}
+body #cssmenu ul li:first-of-type {
+  margin-left: 15px;
+}
+body #cssmenu ul li a {
+  text-decoration: none;
+  color: #625953;
+  font-weight: bold;
+}
+body #cssmenu ul li ul {
+  display: none;
+}

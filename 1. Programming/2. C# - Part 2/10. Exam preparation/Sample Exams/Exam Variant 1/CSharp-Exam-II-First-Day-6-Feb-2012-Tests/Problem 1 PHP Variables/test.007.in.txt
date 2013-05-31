@@ -1,0 +1,91 @@
+<?php
+//die("<center><b>System maintenance. We will be back soon!</b></centet>");
+define("IN_SYSTEM", true);
+// Report all errors, except notices
+ini_set('display_errors','On'); 
+ini_set("error_reporting", E_ALL ^ E_NOTICE); 
+error_reporting(E_ALL ^ E_NOTICE); // error_reporting(E_ALL);
+//$starttime = microtime(true);
+$basepath = dirname(__FILE__);
+// stripslashes?
+define("STRIP", (get_magic_quotes_gpc()) ? true : false);
+
+// Include files
+include ("{$basepath}/includes/const.php");
+include ("{$basepath}/includes/config.php");
+if (DEBUG) include ("{$basepath}/includes/stdfuncs.inc.php");
+include ("{$basepath}/includes/functions.php");
+include ("{$basepath}/includes/mysql.php");
+include ("{$basepath}/includes/user.php");
+include ("{$basepath}/includes/cleanup.php");
+include ("{$basepath}/includes/adv.php");
+include ("{$basepath}/includes/smarty.php");
+
+// Database connect
+$db = new MySQL($db_host, $db_user, $db_pass, $db_name);
+// Load dynamic configuration
+$config = loadconfig();
+if ($config['online'] == 0) die("{$config['offlinemessage']}");
+// Load current user information
+$user = new User();
+// Load template system
+$smarty = new smarty_connect();
+
+$params = array(
+   "module" => trim(str_replace(array('/', '\\', '..'), "", $_GET['module'])),
+   "module2" => trim(str_replace(array('/', '\\', '..'), "", $_GET['module2'])),
+   "module3" => trim(str_replace(array('/', '\\', '..'), "", $_GET['module3'])),
+   "id" => (int)$_GET['id'],
+   "page" => (int)$_GET['page'],
+   "name" => $_GET['name'],
+);
+if ($params['module'] == "index") $params['module'] = "home";
+if ($params['module2'] == "index") $params['module2'] = "home";
+if ($params['module3'] == "index") $params['module3'] = "home";
+if ($params['module'] == "forums") $params['file'] = "forums/{$params['module3']}";
+else $params['file'] = $params['module'] != "" ? $params['module2'] != "" ? $params['module3'] != "" ? "{$params['module']}/{$params['module2']}/{$params['module3']}" : "{$params['module']}/{$params['module2']}" : "{$params['module']}" : "404";
+if ($params['page'] < 1) $params['page'] = 1;
+//show_var($_GET, "get");
+//show_var($params, "params");
+
+$meta_title = "";
+$meta_description = DEFAULT_DESCRIPTION;
+$meta_keywords = array();
+$meta_robots = ROBOTS_ALL;
+$path = "";
+$left_title = "";
+$left_subtitle = "";
+$left_content = "";
+$content_top_title = "";
+$content_top_subtitle = "";
+$content_top_link = "";
+$content_bottom_title = "";
+$content_bottom_subtitle = "";
+$content_bottom_link = "";
+$content_color = "light";
+
+//$module = $db->db_query("SELECT * FROM `modules` WHERE `module` = {$db->make_safe($params['module'])} AND `module2` = {$db->make_safe($params['module2'])} AND `module3` = {$db->make_safe($params['module3'])} LIMIT 1", __FILE__, __LINE__);
+
+include ("./languages/{$user->lang}/common.php");
+if (file_exists("./code/{$params['file']}.php") && file_exists(SMARTY_TEMPLATE_DIR . "/{$params['file']}.tpl"))
+{
+   //include ("./languages/{$user->lang}/{$params['file']}.php");
+   include ("./code/{$params['file']}.php");
+   if (!defined("NO_HTML")) include ("./code/header.php");
+   if (!defined("NO_HTML")) include ("./code/footer.php");
+   if (!defined("NO_HTML"))$smarty->display("header.tpl");
+   $smarty->display("{$params['file']}.tpl");
+   if (!defined("NO_HTML")) $smarty->display("footer.tpl");
+}
+else
+{
+   //include ("./languages/{$user->lang}/404.php");
+   include ("./code/404.php");
+   include ("./code/header.php");
+   include ("./code/footer.php");
+   $smarty->display("header.tpl");
+   $smarty->display("404.tpl");
+   $smarty->display("footer.tpl");
+}
+register_shutdown_function(full_cleanup);
+?>

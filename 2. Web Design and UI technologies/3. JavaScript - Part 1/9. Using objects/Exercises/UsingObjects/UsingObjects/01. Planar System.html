@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Planar System</title>
+	<link href="styles/js-console.css" rel="stylesheet" />
+	<style>
+		#number {
+			border: 1px solid black;
+			padding: 5px 15px;
+			background-color: black;
+			color: white;
+			font-family: Consolas;
+			margin-bottom: 5px;
+		}
+
+		a {
+			color: black;
+			border: 1px solid black;
+			padding: 5px 15px;
+			text-decoration: none;
+			display: inline-block;
+			margin: 15px 0;
+		}
+
+			a:hover {
+				text-decoration: underline;
+			}
+	</style>
+</head>
+<body>
+	<a href="#" onclick="print()">Print</a>
+	<div id="console">
+	</div>
+	<script src="scripts/js-console.js">	  
+	</script>
+	<script>
+	    function print() {
+	        jsConsole.writeLine("Some point: " + point(3, 4));
+	        jsConsole.writeLine("Some line: " + line(point(1, 2), point(2, 3)));
+	        var someLine = line(point(1, 2), point(2, 3));
+	        jsConsole.writeLine("Length of line: " + distance(someLine.start, someLine.end));
+	        var firstLine = line(point(100, 300), point(3, 4));
+	        var secondLine = line(point(2, 3), point(1, 4));
+	        jsConsole.writeLine("Lines can form triangle: " + formTriangle(someLine, firstLine, secondLine));
+	    }
+
+	    function point(x, y) {
+	        return {
+	            X: x,
+	            Y: y,
+                toString: function() {return this.X + "," + this.Y}
+	        }
+	    }
+
+	    function line(firstPoint, secondPoint) {
+	        return {
+	            start: firstPoint,
+	            end: secondPoint,
+                toString: function() {return "Start: " + this.start + " End: " + this.end}
+	        }
+	    }
+
+	    function distance(firstPoint, secondPoint) {
+	        var deltaX = Math.pow((firstPoint.X - secondPoint.X), 2);
+	        var deltaY = Math.pow((firstPoint.Y - secondPoint.Y), 2);
+	        return Math.sqrt(deltaX + deltaY);
+	    }
+
+	    function formTriangle(firstLine, secondLine, thirdLine)
+	    {
+	        var canForm = true;
+
+	        if (distance(firstLine.start, firstLine.end) > (distance(secondLine.start, secondLine.end)
+	        + distance(thirdLine.start, thirdLine.end))) {
+	            canForm = false;
+	        }
+
+	        if (distance(secondLine.start, secondLine.end) > (distance(firstLine.start, firstLine.end)
+	        + distance(thirdLine.start, thirdLine.end))) {
+	            canForm = false;
+	        }
+
+	        if (distance(thirdLine.start, thirdLine.end) > (distance(firstLine.start, firstLine.end)
+	        + distance(secondLine.start, secondLine.end))) {
+	            canForm = false;
+	        }
+
+	        return canForm;
+	    }
+	</script>
+</body>
+</html>

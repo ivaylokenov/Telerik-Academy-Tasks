@@ -1,0 +1,15 @@
+0      X                                                     =                                   0
+15 Y=-60000
+16 Y = 0 - Y
+17 Z = 1
+19 CLS
+20 IF Y = 0 THEN GOTO 10000
+21 X = X + Y
+22 Y=Y-Z
+23 GOTO 19
+5000 PRINT Y
+5001 PRINT X
+5002 STOP
+9999 PRINT Z
+10000 GOTO 5000
+RUN

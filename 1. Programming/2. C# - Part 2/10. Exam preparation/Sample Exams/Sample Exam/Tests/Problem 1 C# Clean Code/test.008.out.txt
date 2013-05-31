@@ -1,0 +1,459 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+using EffiProz.Core.Persist;
+using EffiProz.Core.Lib;
+using EffiProz.Core.Rights;
+using EffiProz.Core.Errors;
+using EffiProz.Core.Results;
+using EffiProz.Core.DataTypes;
+using EffiProz.Core.DbInfos;
+namespace EffiProz.Core
+{
+    public class Database
+    {
+        public int databaseID;
+        String databaseUniqueName;
+        String databaseType;
+        private String canonicalPath;
+        public EffiProzProperties urlProperties;
+        private String path;
+        public DatabaseInformation dbInfo;
+        private int dbState;
+        public Logger logger;
+        public bool databaseReadOnly;
+        private bool filesReadOnly;
+        private bool filesInJar;
+        public bool sqlEnforceSize;
+        public bool sqlEnforceNames;
+        private bool bIgnoreCase;
+        private bool _isReferentialIntegrity;
+        public EffiProzDatabaseProperties databaseProperties;
+        private bool shutdownOnNoConnection;
+        int resultMaxMemoryRows;
+        public UserManager userManager;
+        public GranteeManager granteeManager;
+        public QNameManager nameManager;
+        public SessionManager sessionManager;
+        public TransactionManager txManager;
+        public SchemaManager schemaManager;
+        public PersistentStoreCollectionDatabase persistentStoreCollection;
+        public LobManager lobManager;
+        public Collation collation;
+        public const int DATABASE_ONLINE = 1;
+        public const int DATABASE_OPENING = 4;
+        public const int DATABASE_CLOSING = 8;
+        public const int DATABASE_SHUTDOWN = 16;
+        public const int CLOSEMODE_IMMEDIATELY = -1;
+        public const int CLOSEMODE_NORMAL = 0;
+        public const int CLOSEMODE_COMPACT = 1;
+        public const int CLOSEMODE_SCRIPT = 2;
+        public const int LOCKS = 0;
+        public const int MVLOCKS = 1;
+        public const int MVCC = 2;
+        public Database(String type, String path, String canonicalPath,
+                 EffiProzProperties props)
+        {
+            setState(Database.DATABASE_SHUTDOWN);
+            this.databaseType = type;
+            this.path = path;
+            this.canonicalPath = canonicalPath;
+            this.urlProperties = props;
+            if (databaseType == DatabaseURL.S_RES)
+            {
+                filesInJar = true;
+                filesReadOnly = true;
+            }
+            logger = new Logger(this);
+            shutdownOnNoConnection =
+                urlProperties.isPropertyTrue(EffiProzDatabaseProperties.url_shutdown);
+            lobManager = new LobManager(this);
+        }
+        public void open()
+        {
+            lock (this)
+            {
+                if (!isShutdown())
+                {
+                    return;
+                }
+                reopen();
+            }
+        }
+        void reopen()
+        {
+            bool isNew = false;
+            setState(DATABASE_OPENING);
+            try
+            {
+                nameManager = new QNameManager(this);
+                granteeManager = new GranteeManager(this);
+                userManager = new UserManager(this);
+                schemaManager = new SchemaManager(this);
+                persistentStoreCollection =
+                    new PersistentStoreCollectionDatabase();
+                _isReferentialIntegrity = true;
+                sessionManager = new SessionManager(this);
+                collation = Collation.getDefaultInstance();
+                dbInfo = DatabaseInformation.newDatabaseInformation(this);
+                txManager = new TransactionManagerMVCC(this);
+                lobManager.createSchema();
+                logger.openPersistence();
+                isNew = logger.isNewDatabase;
+                if (isNew)
+                {
+                    userManager.createSAUser();
+                    schemaManager.createPublicSchema();
+                    lobManager.initialiseLobSpace();
+                    logger.checkpoint(false);
+                }
+                lobManager.open();
+                dbInfo.setWithContent(true);
+            }
+            catch (Exception e)
+            {
+                logger.closePersistence(Database.CLOSEMODE_IMMEDIATELY);
+                logger.releaseLock();
+                setState(DATABASE_SHUTDOWN);
+                clearStructures();
+                DatabaseManager.removeDatabase(this);
+                if (!(e is CoreException))
+                {
+                    e = Error.error(ErrorCode.GENERAL_ERROR, e);
+                }
+                logger.logSevereEvent("could not reopen database", e);
+                throw (CoreException)e;
+            }
+            setState(DATABASE_ONLINE);
+        }
+        void clearStructures()
+        {
+            if (schemaManager != null)
+            {
+                schemaManager.clearStructures();
+            }
+            granteeManager = null;
+            userManager = null;
+            nameManager = null;
+            schemaManager = null;
+            sessionManager = null;
+            dbInfo = null;
+        }
+        public int getDatabaseID()
+        {
+            return this.databaseID;
+        }
+        public String getUniqueName()
+        {
+            return databaseUniqueName;
+        }
+        public void setUniqueName(String name)
+        {
+            databaseUniqueName = name;
+        }
+        public String getType()
+        {
+            return databaseType;
+        }
+        public String getPath()
+        {
+            return path;
+        }
+        public QNameManager.QName getCatalogName()
+        {
+            return nameManager.getCatalogName();
+        }
+        public EffiProzDatabaseProperties getProperties()
+        {
+            return databaseProperties;
+        }
+        public SessionManager getSessionManager()
+        {
+            return sessionManager;
+        }
+        public bool isReadOnly()
+        {
+            return databaseReadOnly;
+        }
+        public bool isShutdown()
+        {
+            lock (this)
+            {
+                return dbState == DATABASE_SHUTDOWN;
+            }
+        }
+        public Session connect(String username, String password,
+                                     String zoneString, int timeZoneSeconds)
+        {
+            lock (this)
+            {
+                if (username.Equals("SA", StringComparison.OrdinalIgnoreCase))
+                {
+                    username = "SA";
+                }
+                User user = userManager.getUser(username, password);
+                Session session = sessionManager.newSession(this, user,
+                    databaseReadOnly, false, zoneString, timeZoneSeconds);
+                return session;
+            }
+        }
+        public void setReadOnly()
+        {
+            databaseReadOnly = true;
+            filesReadOnly = true;
+        }
+        public void setFilesReadOnly()
+        {
+            filesReadOnly = true;
+        }
+        public bool isFilesReadOnly()
+        {
+            return filesReadOnly;
+        }
+        public bool isFilesInJar()
+        {
+            return filesInJar;
+        }
+        public UserManager getUserManager()
+        {
+            return userManager;
+        }
+        public GranteeManager getGranteeManager()
+        {
+            return granteeManager;
+        }
+        public void setReferentialIntegrity(bool _ref)
+        {
+            _isReferentialIntegrity = _ref;
+        }
+        public bool isReferentialIntegrity()
+        {
+            return _isReferentialIntegrity;
+        }
+        public void setIgnoreCase(bool b)
+        {
+            bIgnoreCase = b;
+        }
+        public bool isIgnoreCase()
+        {
+            return bIgnoreCase;
+        }
+        public int getResultMaxMemoryRows()
+        {
+            return resultMaxMemoryRows;
+        }
+        public void setResultMaxMemoryRows(int size)
+        {
+            resultMaxMemoryRows = size;
+        }
+        public void setStrictNames(bool mode)
+        {
+            sqlEnforceNames = mode;
+        }
+        public void setStrictColumnSize(bool mode)
+        {
+            sqlEnforceSize = mode;
+        }
+        protected void finalize()
+        {
+            if (getState() != DATABASE_ONLINE)
+            {
+                return;
+            }
+            try
+            {
+                close(CLOSEMODE_IMMEDIATELY);
+            }
+            catch (CoreException)
+            {    
+            }
+        }
+        private static DateTime checkPointTime = DateTime.MinValue;
+        private static object checkPointLock = new object();
+        public void checkPointIfLast()
+        {
+            if (shutdownOnNoConnection && sessionManager.isEmpty()
+                    && dbState == DATABASE_ONLINE)
+            {
+                ScheduleCheckpoint();
+            }
+        }
+        /// <summary>
+        /// This method delays checkpoints for half a second
+        /// so if another checkpoint or connection happens 
+        /// it won't lock the database much.
+        /// I've tested this quickly and if this code is removed
+        /// scalability drops down drammatically.
+        /// User can completely control this by setting the property
+        /// shutdownOnNoConnection to false
+        /// </summary>
+        private void ScheduleCheckpoint()
+        {
+            lock (checkPointLock)
+            {
+                if (checkPointTime > DateTime.Now)
+                {
+                    checkPointTime.AddMilliseconds(500);
+                }
+                else
+                {
+                    checkPointTime = DateTime.Now.AddMilliseconds(500);
+                    System.Threading.ThreadPool.QueueUserWorkItem(
+                        (o) =>
+                        {
+                            while (DateTime.Now < checkPointTime)
+                            {
+                                System.Threading.Thread.Sleep(10);
+                            }
+                        }
+                    );
+                }
+            }
+        }
+        public void close(int closemode)
+        {
+            CoreException he = null;
+            setState(DATABASE_CLOSING);
+            sessionManager.closeAllSessions();
+            sessionManager.clearAll();
+            if (filesReadOnly)
+            {
+                closemode = CLOSEMODE_IMMEDIATELY;
+            }
+            logger.closePersistence(closemode);
+            lobManager.close();
+            try
+            {
+                if (closemode == CLOSEMODE_COMPACT)
+                {
+                    clearStructures();
+                    reopen();
+                    setState(DATABASE_CLOSING);
+                    logger.closePersistence(CLOSEMODE_NORMAL);
+                }
+            }
+            catch (Exception t)
+            {
+                if (t is CoreException)
+                {
+                    he = (CoreException)t;
+                }
+                else
+                {
+                    he = Error.error(ErrorCode.GENERAL_ERROR, t.Message);
+                }
+            }
+            logger.releaseLock();
+            setState(DATABASE_SHUTDOWN);
+            clearStructures();
+            DatabaseManager.removeDatabase(this);
+            if (he != null)
+            {
+                throw he;
+            }
+        }
+        public void setMetaDirty(bool resetPrepared)
+        {
+            if (dbInfo != null)
+            {
+                dbInfo.setDirty();
+            }
+        }
+        private void setState(int state)
+        {
+            lock (this)
+            {
+                dbState = state;
+            }
+        }
+        public int getState()
+        {
+            lock (this)
+            {
+                return dbState;
+            }
+        }
+        String getStateString()
+        {
+            int state = getState();
+            switch (state)
+            {
+                case DATABASE_CLOSING:
+                    return "DATABASE_CLOSING";
+                case DATABASE_ONLINE:
+                    return "DATABASE_ONLINE";
+                case DATABASE_OPENING:
+                    return "DATABASE_OPENING";
+                case DATABASE_SHUTDOWN:
+                    return "DATABASE_SHUTDOWN";
+                default:
+                    return "UNKNOWN";
+            }
+        }
+        public String[] getSettingsSQL()
+        {
+            List<string> list = new List<string>();
+            if (!getCatalogName().name.Equals(
+                    QNameManager.DEFAULT_CATALOG_NAME))
+            {
+                String name = getCatalogName().statementName;
+                list.Add("ALTER CATALOG PUBLIC RENAME TO " + name);
+            }
+            if (collation.collator != null)
+            {
+                String name = collation.getName().statementName;
+                list.Add("SET DATABASE COLLATION " + name);
+            }
+            return list.ToArray();
+        }
+        public Result getScript(bool indexRoots)
+        {
+            Result r = Result.newSingleColumnResult("COMMAND", SqlType.SQL_VARCHAR);
+            String[] list = logger.getPropertiesSQL();
+            addRows(r, list);
+            list = getSettingsSQL();
+            addRows(r, list);
+            list = getGranteeManager().getSQL();
+            addRows(r, list);
+            list = schemaManager.getSQLArray();
+            addRows(r, list);
+            list = getUserManager().getInitialSchemaSQL();
+            addRows(r, list);
+            list = getGranteeManager().getRightstSQL();
+            addRows(r, list);
+            if (indexRoots)
+            {
+                list = schemaManager.getIndexRootsSQL();
+                addRows(r, list);
+            }
+            list = schemaManager.getTextTableSQL(!indexRoots);
+            addRows(r, list);
+            return r;
+        }
+        private static void addRows(Result r, String[] sql)
+        {
+            if (sql == null)
+            {
+                return;
+            }
+            for (int i = 0; i < sql.Length; i++)
+            {
+                String[] s = new String[1];
+                s[0] = sql[i];
+                r.initialiseNavigator().add(s);
+            }
+        }
+        public String getURI()
+        {
+            return databaseType + canonicalPath;
+        }
+        public String getCanonicalPath()
+        {
+            return canonicalPath;
+        }
+        public EffiProzProperties getURLProperties()
+        {
+            return urlProperties;
+        }
+    }
+}

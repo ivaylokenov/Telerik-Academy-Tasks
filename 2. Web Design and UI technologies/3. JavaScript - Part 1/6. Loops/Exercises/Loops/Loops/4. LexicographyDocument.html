@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Min and max</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        var documentElements = document.getElementsByTagName('*');
+
+        var max = documentElements[0].tagName;
+        var min = documentElements[0].tagName;
+
+        for (var i = 1; i < documentElements.length; i++) {
+            if (documentElements[i].tagName > max) {
+                max = documentElements[i].tagName;
+            }
+            if (documentElements[i].tagName < min) {
+                min = documentElements[i].tagName;
+            }
+
+        }
+
+        for (var property in window) {
+            if (property > max) {
+                max = property;
+            }
+            if (property < min) {
+                min = property;
+            }
+        }
+
+        for (var property in navigator) {
+            if (property > max) {
+                max = property;
+            }
+            if (property < min) {
+                min = property;
+            }
+        }
+
+        jsConsole.writeLine("Max element: " + max);
+        jsConsole.writeLine("Min element: " + min);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Biggest of three</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        var first = prompt("Enter first number:");
+        var second = prompt("Enter second number:");
+        var third = prompt("Enter third number:");
+        var biggestNumber = "None";
+
+        if (first > second) {
+            if (first > third) {
+                biggestNumber = first;
+            }
+        }
+        else if (second > first) {
+            if (second > third) {
+                biggestNumber = second;
+            }
+        }
+        else if (third > first) {
+            if (third > second) {
+                biggestNumber = third;
+            }
+        }
+
+        jsConsole.writeLine("Biggest number is: " + biggestNumber);
+    </script>
+</body>
+</html>

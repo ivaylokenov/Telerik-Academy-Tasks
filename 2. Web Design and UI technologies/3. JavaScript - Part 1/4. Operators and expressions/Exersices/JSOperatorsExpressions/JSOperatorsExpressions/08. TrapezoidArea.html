@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Trapezoid area</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="js-console"></div>
+    <script src="scripts/js-console.js"></script>
+    <script>
+        var a = prompt("Enter a:");
+        var b = prompt("Enter b:");
+        var h = prompt("Enter h:");
+        var area = (a + b) * h / 2;
+
+        //console does not print the correct answer here. It should be a bug since the formula is correct....
+        jsConsole.write("Area is: ");
+        jsConsole.writeLine(area);
+    </script>
+</body>
+</html>

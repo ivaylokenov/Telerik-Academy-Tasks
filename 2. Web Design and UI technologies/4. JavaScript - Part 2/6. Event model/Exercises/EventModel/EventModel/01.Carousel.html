@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Carousel</title>
+    <style>
+        .visible{
+            display: block;
+            margin: 10px;
+        }
+
+        .invisible{
+            display: none;
+        }
+
+        input[type=button] {
+            padding: 5px 10px;
+            margin-left: 190px;
+        }
+    </style>
+</head>
+<body>
+    <input type="button" value="Previous" id="previous" />
+    <input type="button" value="Next" id="next" />
+    <img src="images/1.jpg" id="1" class="visible carousel"/>
+    <img src="images/2.jpg" id="2" class="invisible carousel"/>
+    <img src="images/3.jpg" id="3" class="invisible carousel"/>
+    <img src="images/4.jpg" id="4" class="invisible carousel"/>
+    <img src="images/5.jpg" id="5" class="invisible carousel"/>
+    <img src="images/6.jpg" id="6" class="invisible carousel"/>
+    <script src="01.Carousel.js"></script>
+</body>
+</html>

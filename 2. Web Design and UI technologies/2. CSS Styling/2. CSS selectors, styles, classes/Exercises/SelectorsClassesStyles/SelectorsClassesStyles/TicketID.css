@@ -1,0 +1,39 @@
+﻿body {
+    background-color: #6f6f6f;
+}
+
+th {
+    text-align: left;
+    font-size: 22px;
+    color: #b7b7b7;
+}
+
+td {
+    padding: 8px;
+}
+
+table {
+    font-family: Arial;
+}
+
+.firstRow {
+    vertical-align: top;
+    font-style: italic;
+    color: #d9d9d9;
+}
+
+.name {
+    color: #cccb76;
+}
+
+.support {
+    color: red;
+}
+
+.response {
+    color: #b7b7b7;
+}
+
+.status {
+    color: #e47c18;
+}

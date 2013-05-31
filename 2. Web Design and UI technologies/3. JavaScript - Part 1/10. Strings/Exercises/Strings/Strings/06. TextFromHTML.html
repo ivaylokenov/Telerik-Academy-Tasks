@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Text From HTML</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        #number {
+            border: 1px solid black;
+            padding: 5px 15px;
+            background-color: black;
+            color: white;
+            font-family: Consolas;
+            margin-bottom: 5px;
+        }
+
+        a {
+            color: black;
+            border: 1px solid black;
+            padding: 5px 15px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 15px 0;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+    </style>
+</head>
+<body>
+    <a href="#" onclick="print()">Print</a>
+    <div id="console">
+    </div>
+    <script src="scripts/js-console.js">	  
+    </script>
+    <script>
+        function print() {
+            var text = "<html><head><title>Sample site</title></head><body><div>text<div>more text</div>and more...</div>in body</body></html>";
+
+            jsConsole.writeLine(getTextFromHTML(text));
+        }
+
+        function getTextFromHTML(text) {
+
+            var output = "";
+            var inTag = false;
+
+            for (var i = 0; i < text.length; i++) {
+
+                if (text[i] == "<") {
+                    inTag = true;
+                }
+                if (text[i] == ">") {
+                    inTag = false;
+                    continue;
+                }
+
+                if (inTag) {
+                    continue;
+                }
+                else {
+                    output += text[i];
+                }
+            }
+
+            return output;
+        }
+    </script>
+</body>
+</html>

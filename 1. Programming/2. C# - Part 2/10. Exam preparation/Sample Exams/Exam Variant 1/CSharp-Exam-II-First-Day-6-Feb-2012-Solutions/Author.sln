@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Problem 1 PHP Variables", "Problem 1 PHP Variables\Problem 1 PHP Variables.csproj", "{377AC8AD-0835-4C25-95D2-B68429D0788C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Problem 4 3D Stars", "Problem 4 3D Stars\Problem 4 3D Stars.csproj", "{5C6CC685-3030-4B34-B5CD-09E5878E1B38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Problem 3 Tubes", "Problem 3 Tubes\Problem 3 Tubes.csproj", "{1DDCF62D-21D9-4BEB-BBEA-F46C5078948E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Problem 5 Brackets", "Problem 5 Brackets\Problem 5 Brackets.csproj", "{DB40D6EE-A9E3-4D4A-8DA7-C8642BF3D723}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Problem 2 7-segment Digits", "Problem 2 7-segment Digits\Problem 2 7-segment Digits.csproj", "{A98FDA89-5035-405D-BD29-D53629F6078F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{377AC8AD-0835-4C25-95D2-B68429D0788C}.Debug|x86.ActiveCfg = Debug|x86
+		{377AC8AD-0835-4C25-95D2-B68429D0788C}.Debug|x86.Build.0 = Debug|x86
+		{377AC8AD-0835-4C25-95D2-B68429D0788C}.Release|x86.ActiveCfg = Release|x86
+		{377AC8AD-0835-4C25-95D2-B68429D0788C}.Release|x86.Build.0 = Release|x86
+		{5C6CC685-3030-4B34-B5CD-09E5878E1B38}.Debug|x86.ActiveCfg = Debug|x86
+		{5C6CC685-3030-4B34-B5CD-09E5878E1B38}.Debug|x86.Build.0 = Debug|x86
+		{5C6CC685-3030-4B34-B5CD-09E5878E1B38}.Release|x86.ActiveCfg = Release|x86
+		{5C6CC685-3030-4B34-B5CD-09E5878E1B38}.Release|x86.Build.0 = Release|x86
+		{1DDCF62D-21D9-4BEB-BBEA-F46C5078948E}.Debug|x86.ActiveCfg = Debug|x86
+		{1DDCF62D-21D9-4BEB-BBEA-F46C5078948E}.Debug|x86.Build.0 = Debug|x86
+		{1DDCF62D-21D9-4BEB-BBEA-F46C5078948E}.Release|x86.ActiveCfg = Release|x86
+		{1DDCF62D-21D9-4BEB-BBEA-F46C5078948E}.Release|x86.Build.0 = Release|x86
+		{DB40D6EE-A9E3-4D4A-8DA7-C8642BF3D723}.Debug|x86.ActiveCfg = Debug|x86
+		{DB40D6EE-A9E3-4D4A-8DA7-C8642BF3D723}.Debug|x86.Build.0 = Debug|x86
+		{DB40D6EE-A9E3-4D4A-8DA7-C8642BF3D723}.Release|x86.ActiveCfg = Release|x86
+		{DB40D6EE-A9E3-4D4A-8DA7-C8642BF3D723}.Release|x86.Build.0 = Release|x86
+		{A98FDA89-5035-405D-BD29-D53629F6078F}.Debug|x86.ActiveCfg = Debug|x86
+		{A98FDA89-5035-405D-BD29-D53629F6078F}.Debug|x86.Build.0 = Debug|x86
+		{A98FDA89-5035-405D-BD29-D53629F6078F}.Release|x86.ActiveCfg = Release|x86
+		{A98FDA89-5035-405D-BD29-D53629F6078F}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

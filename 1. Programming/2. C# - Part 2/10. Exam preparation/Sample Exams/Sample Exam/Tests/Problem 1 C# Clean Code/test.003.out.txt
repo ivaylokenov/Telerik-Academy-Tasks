@@ -1,0 +1,537 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.IO;
+using System.Net.Sockets;
+#if !PLATFORM_COMPACTFRAMEWORK  
+using System.Net.Security;
+#endif
+using System.Net;
+using System.Globalization;
+using System.Security.Cryptography.X509Certificates;
+#if !PLATFORM_COMPACTFRAMEWORK  
+using System.Security.Authentication;
+#endif
+using EffiProz.Core;
+using EffiProz.Core.RowIO;
+using EffiProz.Core.Lib;
+using EffiProz.Core.Lib.IO;
+using EffiProz.Core.Results;
+using EffiProz.Core.Errors;
+using EffiProz.Core.DataTypes;
+using EffiProz.Core.Navigators;
+namespace EffiProz.Core.Server
+{
+    public class ClientConnection : SessionInterface
+    {
+        public const String NETWORK_COMPATIBILITY_VERSION = "0.1.0.1";
+        public const int NETWORK_COMPATIBILITY_VERSION_INT = -0010000;
+        const string _certificateName = "Certificate";
+        const int BUFFER_SIZE = 0x1000;
+        byte[] mainBuffer = new byte[BUFFER_SIZE];
+        private bool _isClosed;
+        private TcpClient socket;
+        protected DataOutputStream dataOutput;
+        protected DataInputStream dataInput;
+        protected RowOutputInterface rowOut;
+        protected RowInputBinary rowIn;
+        private Result resultOut;
+        private long sessionID;
+        private long lobIDSequence;
+        private bool _isReadOnly = false;
+        private bool _isAutoCommit = true;
+        private int zoneSeconds;
+        private Scanner scanner;
+        private String zoneString;
+        private Calendar calendar;
+        protected String host;
+        protected int port;
+        protected String path;
+        protected String database;
+        protected bool isTLS;
+        protected int databaseID;
+        public ClientConnection(String host, int port, String path,
+                                    String database, bool isTLS, String user,
+                                    String password, int timeZoneSeconds)
+        {
+            this.host = host;
+            this.port = port;
+            this.path = path;
+            this.database = database;
+            this.isTLS = isTLS;
+            this.zoneSeconds = timeZoneSeconds;
+#if !PLATFORM_COMPACTFRAMEWORK  
+            this.zoneString = TimeZoneInfo.Local.StandardName;
+#endif
+            initStructures();
+            Result login = Result.newConnectionAttemptRequest(user, password,
+                database, zoneString, timeZoneSeconds);
+            initConnection(host, port, isTLS);
+            Result resultIn = execute(login);
+            if (resultIn.isError())
+            {
+                throw Error.error(resultIn);
+            }
+            sessionID = resultIn.getSessionId();
+            databaseID = resultIn.getDatabaseId();
+        }
+        private void initStructures()
+        {
+            RowOutputBinary rowOutTemp = new RowOutputBinary(mainBuffer);
+            rowOut = rowOutTemp;
+            rowIn = new RowInputBinary(rowOutTemp);
+            resultOut = Result.newSessionAttributesResult();
+        }
+        protected virtual void initConnection(String host, int port,
+                                      bool isTLS)
+        {
+            openConnection(host, port, isTLS);
+        }
+#if !PLATFORM_COMPACTFRAMEWORK   
+        private bool ValidateServerCertificate(
+              object sender,
+              X509Certificate certificate,
+              X509Chain chain,
+              SslPolicyErrors sslPolicyErrors)
+        {
+            if (sslPolicyErrors == SslPolicyErrors.None)
+                return true;
+            else if (sslPolicyErrors == SslPolicyErrors.RemoteCertificateChainErrors
+                && certificate.Subject == certificate.Issuer &&
+                chain.ChainElements.Count == 1)
+                return true;
+            return false; 
+        }
+#endif
+        private Stream GetClientStream(TcpClient client, bool isTLS)
+        {
+#if !PLATFORM_COMPACTFRAMEWORK  
+            if (isTLS)
+            {
+                SslStream sslStream = new SslStream(
+                    client.GetStream(),
+                    false,
+                    new RemoteCertificateValidationCallback(ValidateServerCertificate),
+                    null
+                    );
+                sslStream.AuthenticateAsClient("EffiProz");
+                return sslStream;
+            }
+            else
+#endif
+            {
+                return client.GetStream();
+            }
+        }
+        protected void openConnection(String host, int port,
+                                      bool isTLS)
+        {
+            try
+            {
+                socket = new TcpClient(host, port);
+                socket.NoDelay = true;
+                socket.ReceiveTimeout = 1000;
+                socket.SendTimeout = 1000;
+                Stream clientStream = GetClientStream(socket, isTLS);
+                dataInput = new DataInputStream(clientStream);
+                dataOutput = new DataOutputStream(clientStream);  
+            }
+            catch (Exception e)
+            {
+                throw new CoreException(e, Error.getStateString(ErrorCode.X_08001),
+                                     -ErrorCode.X_08001);
+            }
+        }
+        protected void closeConnection()
+        {
+            try
+            {
+                if (socket != null)
+                {
+                    socket.Close();
+                }
+            }
+            catch (Exception) { }
+            socket = null;
+        }
+        public virtual Result execute(Result r)
+        {
+            lock (this)
+            {
+                try
+                {
+                    r.sessionID = sessionID;
+                    r.databaseID = databaseID;
+                    write(r);
+                    return read();
+                }
+                catch (Exception e)
+                {
+                    throw Error.error(ErrorCode.X_08006, e.ToString());
+                }
+            }
+        }
+        public RowSetNavigatorClient getRows(long navigatorId,
+           int offset, int size)
+        {
+            lock (this)
+            {
+                try
+                {
+                    resultOut.setResultType(ResultConstants.REQUESTDATA);
+                    resultOut.setResultId(navigatorId);
+                    resultOut.setUpdateCount(offset);
+                    resultOut.setFetchSize(size);
+                    Result result = execute(resultOut);
+                    return (RowSetNavigatorClient)result.getNavigator();
+                }
+                catch (Exception e)
+                {
+                    throw Error.error(ErrorCode.X_08006, e.ToString());
+                }
+            }
+        }
+        public void closeNavigator(long navigatorId)
+        {
+            lock (this)
+            {
+                try
+                {
+                    resultOut.setResultType(ResultConstants.CLOSE_RESULT);
+                    resultOut.setResultId(navigatorId);
+                    execute(resultOut);
+                }
+                catch (Exception ) { }
+            }
+        }
+        public void close()
+        {
+            lock (this)
+            {
+                if (_isClosed)
+                {
+                    return;
+                }
+                _isClosed = true;
+                try
+                {
+                    resultOut.setResultType(ResultConstants.DISCONNECT);
+                    execute(resultOut);
+                }
+                catch (Exception) { }
+                try
+                {
+                    closeConnection();
+                }
+                catch (Exception) { }
+            }
+        }
+        public Object getAttribute(int id)
+        {
+            lock (this)
+            {
+                resultOut.setResultType(ResultConstants.GETSESSIONATTR);
+                resultOut.setStatementType(id);
+                Result rin = execute(resultOut);
+                if (rin.isError())
+                {
+                    throw Error.error(rin);
+                }
+                Object[] data = rin.getSingleRowData();
+                switch (id)
+                {
+                    case SessionInfoConsts.INFO_AUTOCOMMIT:
+                        return data[SessionInfoTypeConsts.INFO_BOOLEAN];
+                    case SessionInfoConsts.INFO_CONNECTION_READONLY:
+                        return data[SessionInfoTypeConsts.INFO_BOOLEAN];
+                    case SessionInfoConsts.INFO_ISOLATION:
+                        return data[SessionInfoTypeConsts.INFO_INTEGER];
+                    case SessionInfoConsts.INFO_CATALOG:
+                        return data[SessionInfoTypeConsts.INFO_VARCHAR];
+                }
+                return null;
+            }
+        }
+        public void setAttribute(int id, Object property)
+        {
+            lock (this)
+            {
+                resultOut.setResultType(ResultConstants.SETSESSIONATTR);
+                Object[] data = resultOut.getSingleRowData();
+                data[SessionInfoTypeConsts.INFO_ID] = (id);
+                switch (id)
+                {
+                    case SessionInfoConsts.INFO_AUTOCOMMIT:
+                    case SessionInfoConsts.INFO_CONNECTION_READONLY:
+                        data[SessionInfoTypeConsts.INFO_BOOLEAN] = property;
+                        break;
+                    case SessionInfoConsts.INFO_ISOLATION:
+                        data[SessionInfoTypeConsts.INFO_INTEGER] = property;
+                        break;
+                    case SessionInfoConsts.INFO_CATALOG:
+                        data[SessionInfoTypeConsts.INFO_VARCHAR] = property;
+                        break;
+                }
+                Result resultIn = execute(resultOut);
+                if (resultIn.isError())
+                {
+                    throw Error.error(resultIn);
+                }
+            }
+        }
+        public bool isReadOnlyDefault()
+        {
+            lock (this)
+            {
+                Object info = getAttribute((int)SessionInfoConsts.INFO_CONNECTION_READONLY);
+                _isReadOnly = ((bool)info);
+                return _isReadOnly;
+            }
+        }
+        public void setReadOnlyDefault(bool mode)
+        {
+            lock (this)
+            {
+                if (mode != _isReadOnly)
+                {
+                    setAttribute( (int)SessionInfoConsts.INFO_CONNECTION_READONLY, mode ? true
+                                      : false);
+                    _isReadOnly = mode;
+                }
+            }
+        }
+        public bool isAutoCommit()
+        {
+            lock (this)
+            {
+                Object info = getAttribute((int)SessionInfoConsts.INFO_AUTOCOMMIT);
+                _isAutoCommit = Convert.ToBoolean(info);
+                return _isAutoCommit;
+            }
+        }
+        public void setAutoCommit(bool mode)
+        {
+            lock (this)
+            {
+                if (mode != _isAutoCommit)
+                {
+                    setAttribute((int)SessionInfoConsts
+                                          .INFO_AUTOCOMMIT,mode ? true
+                                      : false);
+                    _isAutoCommit = mode;
+                }
+            }
+        }
+        public void setIsolationDefault(int level)
+        {
+            lock (this)
+            {
+                setAttribute(level,
+                             (int)SessionInfoConsts.INFO_ISOLATION);
+            }
+        }
+        public int getIsolation()
+        {
+            lock (this)
+            {
+                Object info = getAttribute((int)SessionInfoConsts.INFO_ISOLATION);
+                return Convert.ToInt32(info);
+            }
+        }
+        public bool isClosed()
+        {
+            return _isClosed;
+        }
+        public Session getSession()
+        {
+            return null;
+        }
+        public void startPhasedTransaction() { }
+        public void prepareCommit()
+        {
+            lock (this)
+            {
+                resultOut.setAsTransactionEndRequest(ResultConstants.PREPARECOMMIT,
+                                            null);
+                Result rin = execute(resultOut);
+                if (rin.isError())
+                {
+                    throw Error.error(rin);
+                }
+            }
+        }
+        public void commit(bool chain)
+        {
+            lock (this)
+            {
+                resultOut.setAsTransactionEndRequest(ResultConstants.TX_COMMIT,
+                                            null);
+                Result rin = execute(resultOut);
+                if (rin.isError())
+                {
+                    throw Error.error(rin);
+                }
+            }
+        }
+        public void rollback(bool chain)
+        {
+            lock (this)
+            {
+                resultOut.setAsTransactionEndRequest(ResultConstants.TX_ROLLBACK,
+                                            null);
+                Result rin = execute(resultOut);
+                if (rin.isError())
+                {
+                    throw Error.error(rin);
+                }
+            }
+        }
+        public void rollbackToSavepoint(String name)
+        {
+            lock (this)
+            {
+                resultOut.setAsTransactionEndRequest(ResultConstants.TX_SAVEPOINT_NAME_ROLLBACK,
+                                            name);
+                Result rin = execute(resultOut);
+                if (rin.isError())
+                {
+                    throw Error.error(rin);
+                }
+            }
+        }
+        public void savepoint(String name)
+        {
+            lock (this)
+            {
+                Result result = Result.newSetSavepointRequest(name);
+                Result rin = execute(result);
+                if (rin.isError())
+                {
+                    throw Error.error(rin);
+                }
+            }
+        }
+        public void releaseSavepoint(String name)
+        {
+            lock (this)
+            {
+                resultOut.setAsTransactionEndRequest(ResultConstants.TX_SAVEPOINT_NAME_RELEASE,
+                                            name);
+                Result rin = execute(resultOut);
+                if (rin.isError())
+                {
+                    throw Error.error(rin);
+                }
+            }
+        }
+        public long getId()
+        {
+            lock (this)
+            {
+                return sessionID;
+            }
+        }
+        public void addWarning(CoreException warning) { }
+        public void resetSession()
+        {
+            lock (this)
+            {
+                Result login = Result.newResetSessionRequest();
+                Result resultIn = execute(login);
+                if (resultIn.isError())
+                {
+                    _isClosed = true;
+                    closeConnection();
+                    throw Error.error(resultIn);
+                }
+                sessionID = resultIn.getSessionId();
+                databaseID = resultIn.getDatabaseId();
+            }
+        }
+        protected virtual void write(Result r)
+        {
+            r.write(dataOutput, rowOut);
+        }
+        protected virtual Result read()
+        {
+            Result result = Result.newResult(dataInput, rowIn);
+            result.readAdditionalResults(this, dataInput, rowIn);
+            rowOut.setBuffer(mainBuffer);
+            rowIn.resetRow(mainBuffer.Length);
+            return result;
+        }
+        public String getInternalConnectionURL()
+        {
+            lock (this)
+            {
+                return null;
+            }
+        }
+        public long getLobId()
+        {
+            lock (this)
+            {
+                return lobIDSequence++;
+            }
+        }
+        public BlobDataID createBlob(long length)
+        {
+            BlobDataID blob = new BlobDataID(getLobId());
+            return blob;
+        }
+        public ClobDataID createClob(long length)
+        {
+            ClobDataID clob = new ClobDataID(getLobId());
+            return clob;
+        }
+        public void allocateResultLob(ResultLob resultLob,
+                                    Stream dataInput) { }
+        public Scanner getScanner()
+        {
+            if (scanner == null)
+            {
+                scanner = new Scanner();
+            }
+            return scanner;
+        }
+        public Calendar getCalendar()
+        {
+            if (calendar == null)
+            {
+                calendar = new GregorianCalendar();
+            }
+            return calendar;
+        }
+        public TimestampData getCurrentDate()
+        {
+            long currentMillis = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
+            long seconds = EfzDateTime.getCurrentDateMillis(currentMillis) / 1000;
+            return new TimestampData(seconds);
+        }
+        public int getZoneSeconds()
+        {
+            return zoneSeconds;
+        }
+        public int getStreamBlockSize()
+        {
+            return 512 * 1024;
+        }
+        static public String toNetCompVersionString(int i)
+        {
+            StringBuilder sb = new StringBuilder();
+            i *= -1;
+            sb.Append(i / 1000000);
+            i %= 1000000;
+            sb.Append('.');
+            sb.Append(i / 10000);
+            i %= 10000;
+            sb.Append('.');
+            sb.Append(i / 100);
+            i %= 100;
+            sb.Append('.');
+            sb.Append(i);
+            return sb.ToString();
+        }
+    }
+}

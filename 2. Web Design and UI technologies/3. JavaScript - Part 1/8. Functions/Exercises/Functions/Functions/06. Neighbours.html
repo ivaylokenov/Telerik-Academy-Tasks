@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Neighbours</title>
+	<link href="styles/js-console.css" rel="stylesheet" />
+	<style>
+		#number {
+			border: 1px solid black;
+			padding: 5px 15px;
+			background-color: black;
+			color: white;
+			font-family: Consolas;
+			margin-bottom: 5px;
+		}
+
+		a {
+			color: black;
+			border: 1px solid black;
+			padding: 5px 15px;
+			text-decoration: none;
+			display: inline-block;
+			margin: 15px 0;
+		}
+
+			a:hover {
+				text-decoration: underline;
+			}
+	</style>
+</head>
+<body>
+	<a href="#" onclick="buttonClick()">Print</a>
+	<div id="console">
+	</div>
+	<script src="scripts/js-console.js">	  
+	</script>
+	<script>
+	    function buttonClick() {
+	        var someArray = [1, 1, 2, 3, 4, 5, 6, 1, 2, 4, 1, ];
+
+	        jsConsole.write(checkPosition(someArray, 6));
+	    }
+
+	    function checkPosition(array, position) {
+
+	        if (position < 1 || position > array.length - 1)
+	        {
+	            return "Position does not contain two neighbours!";
+	        }
+
+	        if (array[position] > array[position + 1] && array[position] > array[position - 1]) {
+	            return "Number is bigger than its neighbours!";
+	        }
+	        else {
+	            return "Number is not bigger than its neighbours!";
+	        }
+	    }
+	</script>
+</body>
+</html>
+
+

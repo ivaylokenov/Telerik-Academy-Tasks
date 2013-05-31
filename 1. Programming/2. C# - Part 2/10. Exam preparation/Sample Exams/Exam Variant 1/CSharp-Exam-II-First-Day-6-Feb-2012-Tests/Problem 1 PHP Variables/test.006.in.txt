@@ -1,0 +1,31 @@
+<?php
+/* Hi, C#!!! I am PHP code */
+// $And $I \$will \\$try $to $make "$your" "{$life}" '$hard'
+# $And $I \$will \\$try $to $make "$your" "{$life}" '$hard'
+/* $And $I \$will \\$try $to $make "$your" "{$life}" '$hard'
+// $And $I \$will \\$try $to $make "$your" "{$life}" '$hard'
+$And $I \$will \\$try $to $make "$your" "{$life}" '$hard'
+*/
+
+
+
+
+
+// Still no variables, right?
+
+$arr = array(123);
+array_push($arr, $var);
+
+$arr = array(123);
+array_push($arr, $var);
+
+$arr = array(123);
+array_push($arr, $var);
+
+$i_am = $I_AM = $i_aM = $I_aM = $I_Am = $I_AM = $i_Am = $i_AM = $I_Am = "$I_am";
+$i_am = $I_AM = $i_aM = $I_aM = $I_Am = $I_AM = $i_Am = $i_AM = $I_Am = "$I_am";
+$str = "{$you_are_damn_good}";
+$str = "\$you_are_NOT_damn_good";
+$str3 = "strange\\$string1\$asdasdasd\"$_string2__";
+$str2 = "{$arr44[5]}";
+?>

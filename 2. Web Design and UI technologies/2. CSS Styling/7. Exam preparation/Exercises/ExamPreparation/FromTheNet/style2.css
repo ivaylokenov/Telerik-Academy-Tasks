@@ -1,0 +1,102 @@
+﻿body,
+div,
+header,
+h1,
+section,
+footer,
+p {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: Verdana;
+  width: 800px;
+  height: 600px;
+  background: black;
+  padding: 0 0 0 75px;
+}
+body > header {
+  padding: 30px 0;
+}
+body > header h1 a {
+  color: white;
+  text-decoration: none;
+}
+body section {
+  width: 650px;
+}
+body section header {
+  display: inline-block;
+  width: 262px;
+  float: left;
+}
+body section header h2,
+body section header p {
+  color: white;
+}
+body section header p {
+  font-size: 0.6em;
+  margin-top: 15px;
+}
+body section header p a {
+  text-decoration: none;
+  color: #00AFCE;
+}
+body section #articles a {
+  display: inline-block;
+  width: 125px;
+  height: 125px;
+  font-size: 0.6em;
+  color: black;
+  background: white;
+  margin: 3px 0;
+  text-decoration: none;
+  overflow: hidden;
+}
+body section .color1,
+body section .color2,
+body section .color3,
+body section .color4 {
+  margin-top: 3px;
+  display: inline-block;
+  width: 125px;
+  height: 125px;
+  background: white;
+  text-align: center;
+}
+body section .color1 a,
+body section .color2 a,
+body section .color3 a,
+body section .color4 a {
+  position: relative;
+  top: 90px;
+  text-decoration: none;
+  font-size: 1.2em;
+  color: white;
+}
+body section .color3 {
+  width: 256px;
+  background: #00AFCE;
+}
+body section .color1 {
+  background: #D0B601;
+}
+body section .color2 {
+  background: #C85101;
+}
+body section .color4 {
+  background: #A5C700;
+}
+body footer {
+  float: right;
+  margin-right: 150px;
+  margin-top: 30px;
+  font-size: 0.6em;
+}
+body footer p {
+  color: white;
+}
+body footer p a {
+  color: #00AFCE;
+  text-decoration: none;
+}

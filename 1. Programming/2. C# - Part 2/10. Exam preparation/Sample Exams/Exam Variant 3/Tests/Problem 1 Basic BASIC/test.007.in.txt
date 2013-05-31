@@ -1,0 +1,18 @@
+0                                                                                    PRINT X
+1                                                                                    X = 1                          
+2                                                                                                                                        Y = X + X                          
+3                                                                                                              IF Y > 1000 THEN GOTO 9                          
+4                                                                                    PRINT Y                          
+5                                                                                    X=Y                          
+6                                                                                    GOTO 2                          
+9                                                                                    X=X-1                                                              
+10                                                                                                                   IF X=0 THEN CLS
+11                                                                                                                   IF X<0 THEN GOTO 13
+12                                                                                                                   GOTO 9
+13                                                                                                                   PRINT                                             V
+14                                                                                                                   PRINT                                             W
+15                                                                                                                   PRINT                                             X
+16                                                                                                                   PRINT                                             Y
+17                                                                                                                   PRINT                                             Z
+10000 X=Y
+RUN

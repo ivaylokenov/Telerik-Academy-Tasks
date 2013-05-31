@@ -1,0 +1,4 @@
+class Program
+{
+	string abv = "\\abv//abv\\**/**///asd";
+}

@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Tag cloud</title>
+    <style>
+        #wrapper {
+            width: auto;
+            height: auto;
+            padding: 15px;
+            border: 1px solid black;
+            display: inline-block;
+        }
+    </style>
+    <script>
+        function onButtonClick() {
+            var tags = ["cms", "javascript", "js", "ASP.NET MVC", ".net", ".net", "css", "wordpress", "xaml", "js", "http", "web", "asp.net", "asp.net MVC", "ASP.NET MVC", "wp", "javascript", "js", "cms", "html", "javascript", "http", "http", "CMS"];
+
+            var tagObjects = [];
+
+            //generate tag occurrences
+            for (var i = 0; i < tags.length; i++) {
+                var currentTag = createTagObject(tags[i]);
+                var searchResult = searchObject(currentTag.name);
+                if (searchResult == -1) {
+                    tagObjects.push(currentTag);
+                }
+                else {
+                    tagObjects[searchResult].length++;
+                }
+            }
+
+            //sort by occurrences starting from the most repeated object
+            tagObjects.sort(function (a, b) {
+                if (a.length < b.length) {
+                    return 1;
+                }
+                if (a.length > b.length) {
+                    return -1;
+                }
+                return 0;
+            });
+
+            generateTagCloud(tagObjects, 17, 42);
+
+            //generate tags
+            function generateTagCloud(tagObjects, minFont, maxFont) {
+                var container = document.getElementById("wrapper");
+                var font = maxFont;
+                var documentFragmenter = document.createDocumentFragment();
+
+                for (var i = 0; i < tagObjects.length; i++) {
+                    var newSpan = document.createElement("span");
+                    newSpan.innerHTML = tagObjects[i].name;
+                    newSpan.style.fontSize = font + "px";
+                    if (font > minFont + 1) {
+                        font -= 2;
+                    }
+                    else {
+                        font = minFont;
+                    }
+                    documentFragmenter.appendChild(newSpan);
+                    documentFragmenter.appendChild(document.createElement("br"));
+                }
+
+                container.appendChild(documentFragmenter);
+            }
+
+            function createTagObject(name) {
+                return {
+                    name: name,
+                    length: 1
+                }
+            }
+
+            function searchObject(tagName) {
+                for (var i = 0; i < tagObjects.length; i++) {
+                    if (tagName === tagObjects[i].name) {
+                        return i;
+                    }
+                }
+                return -1;
+            }
+        }
+    </script>
+</head>
+<body>
+    <a href="#" onclick="onButtonClick()">Click me!!!</a>
+    <br />
+    <div id="wrapper"></div>
+</body>
+</html>

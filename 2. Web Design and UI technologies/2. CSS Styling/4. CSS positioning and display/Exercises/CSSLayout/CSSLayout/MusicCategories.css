@@ -1,0 +1,78 @@
+﻿body {
+    font: 14px/1.2 Verdana, sans-serif;
+}
+
+section {
+    background-color: #EEEEEE;
+    width: 500px;
+    height: 600px;
+    border-radius: 12px;
+}
+
+.wrapper {
+    border: 1px solid #ABABAB;
+    border-radius: 1px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 40px;
+    margin-top: 40px;
+    width: 95%;
+    height: 138px;
+    background-color: white;
+}
+
+    .wrapper > img {
+        float:left;
+        margin: 25px;
+        border: 1px solid #ABABAB;
+    }
+
+section > header {
+    font-size: 1.3em;
+    font-weight: normal;
+    font-style: normal;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+.content {
+    height: 86px;
+    padding-top: 8px;
+    padding-right: 15px;
+}
+
+.button {
+    margin:0;
+    padding:0;
+    float: right;
+    padding-left: 5px;
+}
+
+a.button {
+    position: static;
+    top: 20px;
+}
+
+.listentext {
+    position: relative;
+    left: 130px;
+    top: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+span:hover {
+    text-decoration: underline;
+}
+
+.buttontext {
+    position: relative;
+    left: 180px;
+    top: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+p {
+    height: 48px;
+}

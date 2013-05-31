@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Sample exams</title>
+    <link href="styles/js-console.css" rel="stylesheet" />
+    <style>
+        #number {
+            border: 1px solid black;
+            padding: 5px 15px;
+            background-color: black;
+            color: white;
+            font-family: Consolas;
+            margin-bottom: 5px;
+        }
+
+        a {
+            color: black;
+            border: 1px solid black;
+            padding: 5px 15px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 15px 0;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+    </style>
+</head>
+<body>
+    <a href="#" onclick="print()">Print</a>
+    <div id="console">
+    </div>
+    <script src="scripts/js-console.js">	  
+    </script>
+    <script>
+        function print() {
+            var args = ["9", "-9"];
+            jsConsole.writeLine(Solve(args));
+        }
+
+        function Solve(args) {
+            var N = parseInt(args[0]);
+            var answer = 0;
+            var arr = [];
+
+            for (var i = 0; i < N; i++) {
+                arr.push(parseInt(args[i + 1]));
+            }
+
+            var max = arr[0];
+            var maxEnd = arr[0];
+            var longSequence = 1;
+            var currentSequence = 1;
+            var start = 0;
+            var startTemp = 0;
+
+            for (var i = 1; i < arr.length; i++) {
+                if (arr[i] + maxEnd > arr[i]) {
+                    maxEnd = arr[i] + maxEnd;
+                    currentSequence++;
+                }
+                else {
+                    maxEnd = arr[i];
+                    startTemp = i;
+                    currentSequence = 1;
+                }
+
+                if (maxEnd > max) {
+                    max = maxEnd;
+                    longSequence = currentSequence;
+                    start = startTemp;
+                }
+            }
+
+            for (var i = start; i < start+longSequence; i++) {
+                answer += arr[i];
+            }
+
+            return answer;
+        }
+    </script>
+</body>
+</html>
