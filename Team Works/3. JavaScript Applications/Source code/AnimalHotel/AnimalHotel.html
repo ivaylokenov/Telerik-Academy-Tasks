@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Animal hotel</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script src="scripts/jquery-2.0.2.min.js"></script>
+    <script src="scripts/prototypal.js"></script>
+    <script src="scripts/webstorageobject.js"></script>
+</head>
+<body>
+    <audio id="audio-bc" src="sound/nyan.mp3" autoplay="autoplay" loop="loop"></audio>
+    <div id="wrapper">
+    <div id="hotel"></div>
+	
+    <div id="actions-holder">
+        <div>
+            <!--<h2>Doctor</h2>-->
+            <img src="images/doctor.png" ondragover="allowDrop(event)" ondrop="cure(event)" id="doctor"/>
+			<span id='doctors-left'>10</span> 
+        </div>
+        <div>
+            <!--<h2>Food</h2>-->
+            <img src="images/catFood.png" draggable="true" ondragstart="drag(event)" id="food"/>
+        </div>
+		<div>
+            <!--<h2>Walk</h2>-->
+            <img src="images/catwoman2.png" ondragover="allowDrop(event)" ondrop="catWalk(event)" id="cats-walker" />
+        </div>
+    </div>
+    </div>
+    <footer>
+        <p>Copyright Kumquat Team 2013 &copy; All rights reserved.</p>
+    </footer>
+
+    <script type="text/javascript" src="scripts/main-menu.js"></script>
+    <script type="text/javascript" src="scripts/social-menu.js"></script>
+    <script type="text/javascript" src="scripts/drag-drop.js"></script>
+    <script type="text/javascript" src="scripts/hotel.js"></script>
+    <script type="text/javascript" src="scripts/animal.js"></script>
+	<script type="text/javascript" src="scripts/highscore.js"></script>
+	
+    <script type="text/javascript">
+        var sanMarino = Object.create(Hotel);
+        sanMarino.initialize("San Marino", 18);
+
+        var mainMenu = Object.create(MainMenu);
+        mainMenu.create(sanMarino);
+        mainMenu.render();
+		
+		var firstCat = Object.create(Cat);
+        firstCat.initialize("First cat!", 10, 10, 10, 20);
+        sanMarino.addCat(firstCat);
+		sanMarino.render();
+
+        var socialMenu = Object.create(SocialShareMenu);
+        socialMenu.create();
+        socialMenu.render();
+		
+		var highScoreFinal = Object.create(HighScore);
+		highScoreFinal.initialize(sanMarino, mainMenu);
+    </script>
+	<script type="text/javascript">
+	(function() {
+		var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+		po.src = 'https://apis.google.com/js/plusone.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+	})();
+	</script>
+</body>
+</html>

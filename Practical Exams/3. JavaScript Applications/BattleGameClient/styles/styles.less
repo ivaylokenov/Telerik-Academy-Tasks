@@ -1,0 +1,106 @@
+﻿#battle-game .selected {
+    display: none;
+}
+
+td {
+    width: 50px;
+    height: 50px;
+    border: 1px solid black;
+}
+
+#battle-game {
+    width: 1200px;
+
+    h1 {
+        margin-left: 450px;
+    }
+
+    #madness {
+        display: inline-block;
+        float: left;
+        margin-right: 20px;
+    }
+
+    #second-madness {
+        width: 560px;
+        border: 1px solid black;
+        border-radius: 5px;
+        display: inline-block;
+        padding: 25px;
+        margin: 5px;
+    }
+
+    #messages-container, #scores-container {
+        border: 1px solid black;
+        border-radius: 5px;
+        margin: 5px;
+        padding: 5px;
+    }
+
+
+
+    #active-games-container, #open-games-container {
+        border: 1px solid black;
+        border-radius: 5px;
+        margin: 5px;
+    }
+
+    #active-games-container {
+        width: 500px;
+        height: 400px;
+        padding: 5px;
+    }
+
+    #open-games-container {
+        width: 500px;
+        height: 400px;
+        padding: 5px;
+    }
+
+    #game-control {
+        border: 1px solid black;
+        border-radius: 5px;
+        display: inline-block;
+        width: 500px;
+        padding: 5px;
+        margin: 5px;
+    }
+}
+
+    #battle-game #start-form {
+        border: 1px solid black;
+        border-radius: 5px;
+        display: inline-block;
+        text-align: center;
+        margin: 10px;
+        padding: 10px;
+
+		h1 {
+        margin-left: 0;
+    }
+
+        span {
+            display: block;
+            font-weight: bold;
+
+            &:hover {
+                text-decoration: underline;
+                cursor: pointer;
+            }
+        }
+
+        #register-span {
+            display: none;
+        }
+
+        input {
+            display: block;
+            margin: 5px auto;
+        }
+
+        #error {
+            color: red;
+            display: inline-block;
+            width: 200px;
+        }
+    }

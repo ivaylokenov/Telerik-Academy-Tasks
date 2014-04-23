@@ -1,0 +1,54 @@
+﻿@model TicketSystem.Web.ViewModels.CreateTicketViewModel
+
+@{
+    ViewBag.Title = "Create ticket";
+}
+
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm("Create", "Tickets", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="control-group">
+        @Html.LabelFor(ticket => ticket.Category, new { @class = "control-label" })
+        <div class="controls">
+            @Html.DropDownListFor(ticket => ticket.Category, Model.AllCategories)
+            @Html.ValidationMessageFor(ticket => ticket.Category, null, new { @class = "help-inline" })
+        </div>
+    </div>
+    
+    <div class="control-group">
+        @Html.LabelFor(ticket => ticket.Title, new { @class = "control-label" })
+        <div class="controls">
+            @Html.EditorFor(ticket => ticket.Title)
+            @Html.ValidationMessageFor(ticket => ticket.Title, null, new { @class = "help-inline" })
+        </div>
+    </div>
+    
+    <div class="control-group">
+        @Html.LabelFor(ticket => ticket.Priority, new { @class = "control-label" })
+        <div class="controls">
+            @Html.DropDownListFor(ticket => ticket.Priority, Model.AllPriorities)
+            @Html.ValidationMessageFor(ticket => ticket.Priority, null, new { @class = "help-inline" })
+        </div>
+    </div>
+    
+    <div class="control-group">
+        @Html.LabelFor(ticket => ticket.ScreenshotUrl, new { @class = "control-label" })
+        <div class="controls">
+            @Html.EditorFor(ticket => ticket.ScreenshotUrl)
+            @Html.ValidationMessageFor(ticket => ticket.ScreenshotUrl, null, new { @class = "help-inline" })
+        </div>
+    </div>
+    
+    <div class="control-group">
+        @Html.LabelFor(ticket => ticket.Description, new { @class = "control-label" })
+        <div class="controls">
+            @Html.EditorFor(ticket => ticket.Description)
+            @Html.ValidationMessageFor(ticket => ticket.Description, null, new { @class = "help-inline" })
+        </div>
+    </div>
+    
+    <input type="submit" value="Create" class="btn"/>
+}

@@ -1,0 +1,207 @@
+﻿namespace GameFifteen
+{
+    using System;
+
+    internal class Board
+    {
+        private int matrixSizeRows = 4;
+        private int matrixSizeColumns = 4;
+
+        internal string[,] Matrix; //documnt rename
+
+        private const string EmptyCellValue = " ";
+        private static readonly int[] DirectionRow = { -1, 0, 1, 0 }; // documnt rename
+        private static readonly int[] DirectionColumn = { 0, 1, 0, -1 }; // documnt rename
+        private static readonly Random Random = new Random();
+        private int emptyCellRow;
+        private int emptyCellColumn;
+
+        public Board(int matrixSizeRows,int matrixSizeColumns)
+        {
+            this.MatrixSizeRows = matrixSizeRows;
+            this.MatrixSizeColumns = matrixSizeColumns;
+
+            this.InitializeMatrix();
+        }
+
+        public int MatrixSizeRows
+        {
+            get
+            {
+                return this.matrixSizeRows;
+            }
+
+            private set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentOutOfRangeException("Matrix cant have 0 or less rows");
+                }
+
+                this.matrixSizeRows = value;
+            }
+        }
+
+        public int MatrixSizeColumns
+        {
+            get
+            {
+                return this.matrixSizeColumns;
+            }
+
+            private set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentOutOfRangeException("Matrix cant have 0 or less columns");
+                }
+
+                this.matrixSizeColumns = value;
+            }
+        }
+
+        internal void InitializeMatrix()
+        {
+            this.Matrix = new string[this.matrixSizeRows, this.matrixSizeColumns];
+            int cellValue = 1;
+
+            for (int row = 0; row < this.matrixSizeRows; row++)
+            {
+                for (int column = 0; column < this.matrixSizeColumns; column++)
+                {
+                    this.Matrix[row, column] = cellValue.ToString();
+                    cellValue++;
+                }
+            }
+
+            this.emptyCellRow = matrixSizeRows - 1;
+            this.emptyCellColumn = matrixSizeColumns - 1;
+            this.Matrix[emptyCellRow, emptyCellColumn] = Board.EmptyCellValue;
+        }
+
+        internal int CellNumberToDirection(int cellNumber)
+        {
+            int direction = -1;
+
+            for (int dir = 0; dir < DirectionRow.Length; dir++)
+            {
+                bool isDirValid = ValidateNextCell(dir);
+
+                if (isDirValid)
+                {
+                    int nextCellRow = this.emptyCellRow + Board.DirectionRow[dir];
+                    int nextCellColumn = this.emptyCellColumn + Board.DirectionColumn[dir];
+
+                    if (this.Matrix[nextCellRow, nextCellColumn] == cellNumber.ToString())
+                    {
+                        direction = dir;
+                        break;
+                    }
+                }
+            }
+
+            return direction;
+        }
+
+        internal bool ValidateNextCell(int direction)
+        {
+            int nextCellRow = this.emptyCellRow + Board.DirectionRow[direction];
+            bool isRowValid = (nextCellRow >= 0) && (nextCellRow < this.matrixSizeRows);
+
+            int nextCellColumn = this.emptyCellColumn + Board.DirectionColumn[direction];
+            bool isColumnValid = (nextCellColumn >= 0) && (nextCellColumn < this.matrixSizeColumns);
+
+            bool isCellValid = isRowValid && isColumnValid;
+
+            return isCellValid;
+        }
+
+        internal void MoveCell(int direction)
+        {
+            int nextCellRow = this.emptyCellRow + DirectionRow[direction];
+            int nextCellColumn = this.emptyCellColumn + DirectionColumn[direction];
+
+            this.Matrix[this.emptyCellRow, this.emptyCellColumn] = this.Matrix[nextCellRow, nextCellColumn];
+            Matrix[nextCellRow, nextCellColumn] = EmptyCellValue;
+
+            this.emptyCellRow = nextCellRow;
+            this.emptyCellColumn = nextCellColumn;
+
+            Turn.Count++;
+        }
+
+        internal bool CheckIfMatrixIsOrderedCorrectly()
+        {
+            bool isEmptyCellInPlace = this.emptyCellRow == this.matrixSizeRows - 1 &&
+                this.emptyCellColumn == this.matrixSizeColumns - 1;
+
+            if (!isEmptyCellInPlace)
+            {
+                return false;
+            }
+
+            int cellValue = 1;
+            int matrixSize = this.matrixSizeRows * this.matrixSizeColumns;
+
+            for (int row = 0; row < this.matrixSizeRows; row++)
+            {
+                for (int column = 0; column < this.matrixSizeColumns && cellValue < matrixSize; column++)
+                {
+                    if (this.Matrix[row, column] != cellValue.ToString())
+                    {
+                        return false;
+                    }
+
+                    cellValue++;
+                }
+            }
+
+            return true;
+        }
+
+        internal void ShuffleMatrix()
+        {
+            int matrixSize = this.matrixSizeRows * this.matrixSizeColumns;
+            int shuffles = Random.Next(matrixSize, matrixSize * 100);
+
+            for (int i = 0; i < shuffles; i++)
+            {
+                int direction = Random.Next(DirectionRow.Length);
+                if (this.ValidateNextCell(direction))
+                {
+                    this.MoveCell(direction);
+                }
+            }
+
+            if (this.CheckIfMatrixIsOrderedCorrectly())
+            {
+                this.ShuffleMatrix();
+            }
+        }
+<<<<<<< HEAD
+
+        internal void NextMove(int cellNumber)
+        {
+            int matrixSize = this.matrixSizeRows * this.matrixSizeColumns;
+
+            if (cellNumber <= 0 || cellNumber >= matrixSize)
+            {
+                renderer.RenderMessage(Messages.GetCellDoesNotExistMessage());
+                return;
+            }
+
+            int direction = this.CellNumberToDirection(cellNumber);
+
+            if (direction == -1)
+            {
+                renderer.RenderMessage(Messages.GetIllegalMoveMessage());
+                return;
+            }
+
+            this.MoveCell(direction);
+            renderer.RenderMatrix(this);
+        }
+=======
+>>>>>>> b1c9e299e0a1833933a5737d2ddcd944aba7220b
+    }
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>Ninject.Web.Common.WebHost</id>
+    <version>3.0.2-unstable-9012</version>
+    <authors>Ninject Project Contributors</authors>
+    <owners>Ninject Project Contributors</owners>
+    <licenseUrl>https://github.com/ninject/ninject.web.common/raw/master/LICENSE.txt</licenseUrl>
+    <projectUrl>http://www.ninject.org/</projectUrl>
+    <iconUrl>https://github.com/ninject/ninject/raw/master/logos/Ninject-Logo32.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Adds Web hosting support to web common.</description>
+    <language>en-US</language>
+    <tags>Ninject ioc di ASP.NET</tags>
+    <dependencies>
+      <dependency id="Ninject.Web.Common" version="3.0.0-unstable" />
+      <dependency id="WebActivatorEx" version="[2.0, 3.0)" />
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="Microsoft.Web.Infrastructure" targetFramework=".NETFramework4.0" />
+    </frameworkAssemblies>
+  </metadata>
+</package>

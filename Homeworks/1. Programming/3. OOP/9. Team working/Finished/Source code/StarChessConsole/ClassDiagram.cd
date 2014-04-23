@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="StarChessConsole.Field">
+    <Position X="2.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Field.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StarChessConsole.FigurePositions">
+    <Position X="4.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FigurePosition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StarChessConsole.FigureVisualisation">
+    <Position X="0.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAEggAAAAEIAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FigureVisualisation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StarChessConsole.StartProgram">
+    <Position X="8.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAQAEQkAAAAgAAAAAAAAEAAAAAIAAACQChAAAAAA=</HashCode>
+      <FileName>StartProgram.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StarChessConsole.Board">
+    <Position X="2.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAEAAAAAAAAAAAAAAAAAABAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Board.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="StarChessConsole.Figure">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAAQAAQAEAQCAAAAAgAAQAAA=</HashCode>
+      <FileName>Figure.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="StarChessConsole.Knight" Collapsed="true">
+    <Position X="2.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAAAAAQAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Knight.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StarChessConsole.Bishop" Collapsed="true">
+    <Position X="4.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAAAAAQAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Bishop.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StarChessConsole.Queen" Collapsed="true">
+    <Position X="0.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAAAAAQAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Queen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StarChessConsole.Rook">
+    <Position X="2.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAAAAAQAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Rook.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StarChessConsole.King" Collapsed="true">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>King.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StarChessConsole.Pawn" Collapsed="true">
+    <Position X="0.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAAAAAQAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Pawn.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="StarChessConsole.InvalidInputException">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>InvalidInputException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StarChessConsole.ChessChecker">
+    <Position X="8.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ChessChecker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StarChessConsole.History">
+    <Position X="0.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABCAAAAAQAAAAAAAAAAAAAAABAAgA=</HashCode>
+      <FileName>History.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StarChessConsole.Input">
+    <Position X="8.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAACAAAAAAAAAAIAAAACAAAABAAAAA=</HashCode>
+      <FileName>Input.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="StarChessConsole.Menu">
+    <Position X="4.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgIAAAAAIAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Menu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StarChessConsole.Player">
+    <Position X="6.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAQAAAAEAgCAAAIAgAAAAAA=</HashCode>
+      <FileName>Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="StarChessConsole.CursorCoordinates">
+    <Position X="0.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
+      <FileName>CursorCoordinates.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="StarChessConsole.Interfaces.ICollision">
+    <Position X="6.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ICollision.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="StarChessConsole.Interfaces.IMovable">
+    <Position X="6.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Interfaces\IMovable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="StarChessConsole.Interfaces.IUserInput">
+    <Position X="6.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Interfaces\IUserInput.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="StarChessConsole.Names">
+    <Position X="4.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAEggAAAAEAAAAQAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Names.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="StarChessConsole.Colors">
+    <Position X="4.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Colors.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,45 @@
+@{
+    ViewBag.Title = "Category Administration";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@(Html.Kendo()
+    .Grid<TicketSystem.Web.ViewModels.AdminCategoryViewModel>()
+    .Name("category-grid")
+    .Pageable()
+    .Sortable()
+    .Editable(edit =>
+            {
+                edit.Mode(GridEditMode.InLine);
+            })
+    .Filterable()
+    .ToolBar(tool =>
+    {
+        tool.Create();
+    })
+    .Columns(col =>
+            {
+                col.Bound(m => m.Id);
+                col.Bound(m => m.Name);
+                col.Command(com =>
+                            {
+                                com.Edit();
+                                com.Destroy();
+                            }).Title("Commands");
+            })
+    .DataSource(data =>
+            {
+                data.Ajax()
+                    .ServerOperation(true)
+                    .PageSize(10)
+                    .Model(m =>
+                        {
+                            m.Id("Id");
+                            m.Field(f => f.Id).Editable(false);
+                        })
+                    .Create("CreateCategory", "AdministrationCategories")
+                    .Read("ReadCategories", "AdministrationCategories")
+                    .Update("UpdateCategory", "AdministrationCategories")
+                    .Destroy("DestroyCategory", "AdministrationCategories");
+            }))

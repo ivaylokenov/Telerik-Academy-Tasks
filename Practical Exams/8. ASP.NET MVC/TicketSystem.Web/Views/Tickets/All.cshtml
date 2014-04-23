@@ -1,0 +1,106 @@
+﻿@{
+    ViewBag.Title = "Tickets List";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@(Html.Kendo()
+    .DropDownList()
+    .Name("categorysearch")
+    .OptionLabel("All")
+    .DataTextField("Name")
+    .DataValueField("Id")
+    .Events(ev => ev.Change("refreshList"))
+    .DataSource(data =>
+        {
+            data.ServerFiltering(true)
+                .Read(read => 
+                    {
+                        read.Action("GetCategories", "Tickets");
+                    });
+        }))
+
+<div class="row-fluid">
+    <div class="span3">
+        <h4>Title</h4>
+    </div>
+    <div class="span3">
+        <h4>Category</h4>
+    </div>
+    <div class="span2">
+        <h4>Author</h4>
+    </div>
+    <div class="span2">
+        <h4>Priority</h4>
+    </div>
+    <div class="span2">
+        <h4>Details</h4>
+    </div>
+</div>
+
+<div>
+    @(Html.Kendo()
+        .ListView<TicketSystem.Web.ViewModels.ListTicketViewModel>()
+        .Name("tickets")
+        .TagName("div")
+        .ClientTemplateId("ticket-template")
+        .Pageable()
+        .DataSource(data =>
+        {
+            data.Read(read =>
+                {
+                    read.Action("GetTickets", "Tickets")
+                        .Data("categorySearch");
+                });
+            data.ServerOperation(true);
+            data.PageSize(5);
+        }))
+</div>
+
+<script id="ticket-template" type="text/x-kendo-template">
+    <br />    
+    <div class="row-fluid">
+        <div class="span3">
+            <span> #= Title # </span>
+        </div>
+        <div class="span3">
+            <span> #= Category # </span>
+        </div>
+        <div class="span2">
+            <span> #= Author # </span>
+        </div>
+        <div class="span2">
+            <span> #= getPriority(Priority) # </span>
+        </div>
+        <div class="span2">
+            <a href="/Tickets/Details/#= Id #" class="btn">More details...</a>
+        </div>
+    </div>
+    <br />  
+</script>
+
+@section scripts
+{
+    <script>
+        function getPriority(priority) {
+            switch (priority) {
+                case 0: return "Low"; break;
+                case 1: return "Medium"; break;
+                case 2: return "High"; break;
+            }
+        }
+
+        function categorySearch() {
+            return {
+                category: $('#categorysearch').val()
+            }
+        }
+
+        function refreshList() {
+            var list = $('#tickets').data('kendoListView');
+            list.dataSource.read();
+            list.dataSource.page(1);
+            list.refresh();
+        }
+    </script>
+}

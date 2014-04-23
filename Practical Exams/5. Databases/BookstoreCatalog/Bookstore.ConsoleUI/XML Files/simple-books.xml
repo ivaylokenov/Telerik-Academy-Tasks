@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<catalog>
+  <book>
+    <author>Ivan Vazov</author>
+    <title>Under the Yoke</title>
+    <isbn>9789549403015</isbn>
+    <price>49.95</price>
+  </book>
+  <book>
+    <title>Introduction to Programming with C#</title>
+    <isbn> 9789544005276</isbn>
+    <author>Svetlin Nakov And Co.</author>
+    <price>10.00</price>
+    <web-site>http://www.introprogramming.info/intro-csharp-book/</web-site>
+  </book>
+  <book>
+    <author>Ivan Vazov</author>
+    <title>Selected Stories</title>
+    <price>22.75</price>
+  </book>
+  <book>
+    <title>SQL Tutorial</title>
+    <web-site>http://www.w3schools.com/sql/</web-site>
+    <author>W3Schools</author>
+  </book>
+</catalog>

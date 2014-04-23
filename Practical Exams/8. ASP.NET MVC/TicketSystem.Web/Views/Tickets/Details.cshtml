@@ -1,0 +1,72 @@
+﻿@model TicketSystem.Web.ViewModels.TicketDetailsViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>@Model.Title</h2>
+<h3>Category: @Model.Category</h3>
+<div class="row-fluid">
+    <div class="span4">
+        <div>
+            <strong>Author:</strong> @Model.Author
+        </div>
+        <div>
+            <strong>Priority:</strong> @Model.Priority
+        </div>
+    </div>
+    @if (!string.IsNullOrEmpty(Model.ScreenshotUrl))
+    {
+        <div class="span4">
+            <img src="@Model.ScreenshotUrl" alt="@Model.Title" />
+        </div>
+    }
+    @if (!string.IsNullOrEmpty(Model.ScreenshotUrl))
+    {
+        <div class="span4">
+            <strong>Description:</strong> @Model.Description
+        </div>
+    }
+</div>
+<br />
+<div class="row-fluid" id="Comments">
+    <div>
+        Comments:
+    </div>
+    @foreach (var comment in Model.Comments)
+    {
+        @Html.Partial("_CommentPartial", comment)
+    }
+</div>
+
+@if (User.Identity.IsAuthenticated)
+{
+    using (Ajax.BeginForm("PostComment", new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.InsertAfter, UpdateTargetId = "Comments", OnFailure = "badCommentPost" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div>
+            <input type="hidden" name="ticketId" value="@Model.Id" />
+            <textarea name="content"></textarea>
+        </div>
+        <input type="submit" class="btn" value="Add comment" />
+    }
+    
+    <div id="errorPosting" style="display: none">
+        <span>Invalid comment!</span>
+    </div>
+
+    @section scripts
+    {
+        <script>
+            function badCommentPost() {
+                $("#errorPosting").show();
+
+                setTimeout(function () {
+                    $("#errorPosting").hide();
+                }, 3000);
+            }
+        </script>
+    }
+}
+

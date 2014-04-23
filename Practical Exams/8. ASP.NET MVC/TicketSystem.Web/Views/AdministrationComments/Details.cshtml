@@ -1,0 +1,41 @@
+@model TicketSystem.Web.ViewModels.AdminCommentViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<fieldset>
+	<legend>Comment</legend>
+	<dl>
+		<dt>
+			@Html.DisplayNameFor(model => model.AuthorUsername)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.AuthorUsername)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.TicketTitle)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.TicketTitle)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.Content)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Content)
+		</dd>
+
+	</dl>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

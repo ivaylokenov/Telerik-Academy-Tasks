@@ -1,0 +1,46 @@
+@model TicketSystem.Web.ViewModels.AdminCommentViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Comment</legend>
+    <dl>
+        <dt>
+            @Html.DisplayNameFor(model => model.AuthorUsername)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AuthorUsername)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TicketTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TicketTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+
+    </dl>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+}
